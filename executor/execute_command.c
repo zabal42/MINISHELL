@@ -6,11 +6,11 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/12 12:24:52 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:01:52 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 //int g_exit_status = 0;//Variable global para almacenar  "motivo de la salida"
 
@@ -25,6 +25,8 @@ int execute_command(char *command, char **args, char **envp)
 		return (ft_pwd());
 	if (ft_strncmp(command, "echo", 4) == 0)
 		return (ft_echo(args));
+	if (ft_strncmp(command, "cd", 2) == 0)
+		return (ft_cd(args, envp));
 	if (!(access(command, X_OK) == 0))
 	{
 		command = find_executable(command, envp);

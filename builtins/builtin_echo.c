@@ -6,11 +6,11 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:06:02 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/12 12:39:29 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:01:07 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_echo(char **args)
 {

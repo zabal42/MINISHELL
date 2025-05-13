@@ -6,11 +6,11 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/08 10:33:53 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:01:13 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char *find_executable(char *command, char **envp)
 {

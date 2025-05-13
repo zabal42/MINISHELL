@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/12 12:24:59 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:59:40 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "./libft/libft.h"
+# include "./libft/inc/libft.h"
 
 typedef	struct s_cmd
 {
@@ -50,8 +50,11 @@ void	free_array(char **array);
 char	*find_executable(char *command, char **envp);
 int		ft_pwd(void);
 int		ft_echo(char **args);
+int		ft_cd(char **args, char **envp);
 
 #endif
 
-
-//gcc -Wall -Werror -Wextra builtin_pwd.c builtin_echo.c execute_command.c main.c path.c -Llibft -lft -lreadline
+/*
+gcc -Wall -Werror -Wextra builtins/builtin_pwd.c builtins/builtin_echo.c 
+builtins/builtin_cd.c executor/execute_command.c main_jess.c executor/path.c -Llibft -lft -lreadline
+*/
