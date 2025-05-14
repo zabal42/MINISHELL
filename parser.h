@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/12 12:11:18 by mzabal-m         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:50:20 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char			**argv;
-	char			*infile;
-	char			*outfile;
-	int				append;
-	char			*heredoc_delim;
-	struct s_cmd	*next;
-}	t_cmd;
+	char	**argv;
+	int		argc;
+	char	*full_path;
+	int		is_builtin;
+	int		background;
+	int		input_fd;
+	int		output_fd;
+	char	*error_message;
+	void	*redirections;
+}   t_cmd;
 
 /* Tokenizer */
 t_token	*tokenize_input(const char *line);

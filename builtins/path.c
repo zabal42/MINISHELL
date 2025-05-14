@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/13 13:01:13 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:58:03 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ char *find_executable(char *command, char **envp)
 
 void free_array(char **array)
 {
-	int i = 0;
+	int i;
 
 	if (!array)
 		return;
+	i = 0;
 	while (array[i])
 	{
 		free(array[i]);

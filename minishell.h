@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/13 12:59:40 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:10:46 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/inc/libft.h"
+# include "parser.h"
 
+/*
 typedef	struct s_cmd
 {
 	char		**argv;
@@ -35,7 +37,7 @@ typedef	struct s_cmd
 	int			append;
 	char		*heredoc_delim;
 	struct s_cmd	*next;
-}	t_cmd;
+}	t_cmd;*/
 
 typedef struct	s_shell
 {
@@ -45,12 +47,16 @@ typedef struct	s_shell
 	t_cmd	*cmds;
 }	t_shell;
 
-int		execute_command(char *command, char **args, char **envp);
+int 	execute_command(t_cmd *cmd, t_shell *shell);
 void	free_array(char **array);
 char	*find_executable(char *command, char **envp);
-int		ft_pwd(void);
-int		ft_echo(char **args);
-int		ft_cd(char **args, char **envp);
+int		ft_pwd(t_shell *shell);
+int		ft_echo(t_cmd *cmd);
+int		ft_cd(t_shell *shell, t_cmd *cmd);
+void	ft_change_oldpwd_env(t_shell *shell);
+void	ft_change_pwd_env(t_shell *shell);
+char	*ft_get_env_value(const char *key, t_shell *shell);
+char	**ft_add_to_env(char **envp, const char *new_var);
 
 #endif
 
