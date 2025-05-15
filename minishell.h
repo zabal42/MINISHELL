@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/14 12:10:46 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:06:51 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,23 @@ typedef struct	s_shell
 	t_cmd	*cmds;
 }	t_shell;
 
+//------------executor-------------------------------------
 int 	execute_command(t_cmd *cmd, t_shell *shell);
-void	free_array(char **array);
 char	*find_executable(char *command, char **envp);
+//-----------builtins---------------------------------------
 int		ft_pwd(t_shell *shell);
 int		ft_echo(t_cmd *cmd);
 int		ft_cd(t_shell *shell, t_cmd *cmd);
-void	ft_change_oldpwd_env(t_shell *shell);
-void	ft_change_pwd_env(t_shell *shell);
-char	*ft_get_env_value(const char *key, t_shell *shell);
-char	**ft_add_to_env(char **envp, const char *new_var);
+int	ft_export(t_shell *shell, t_cmd *cmd);
+//------------------builtin utls------------------------------------
+char	*get_key_value(char *key, t_shell *shell);
+void	update_env_variable(t_shell *shell, char *key, char *new_value);
+int		ft_is_valid_identifier(const char *str);
+void	ft_add_or_update_env(t_shell *shell, const char *var_with_value);
+char	**ft_realloc_env(char **envp, const char *new_entry);
 
+//-------------------utils------------------------------
+void	free_array(char **array);
 #endif
 
 /*

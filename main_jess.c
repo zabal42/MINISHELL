@@ -6,11 +6,37 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/14 12:04:17 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/15 10:32:59 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char **ft_copy_env(char **envp)
+{
+	int		i;
+	char	**new_env;
+	
+	i = 0;
+	while (envp[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		new_env[i] = ft_strdup(envp[i]);
+		if (!new_env[i])
+		{
+			free_array(new_env);
+			return (NULL);
+		}
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -22,7 +48,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	// Inicializar la estructura t_shell
-	shell.envp = envp;
+	shell.envp = ft_copy_env(envp);
 	shell.exit_status = 0;
 
 	while (1)
@@ -65,7 +91,7 @@ int main(int argc, char **argv, char **envp)
 		free(line);
 		free_array(cmd.argv);
 	}
-	free_array(shell.envp);
+	//free_array(shell.envp);
 	rl_clear_history();
 	return (shell.exit_status);
 }
