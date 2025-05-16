@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/15 12:06:51 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:54:38 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,26 @@ char	*find_executable(char *command, char **envp);
 int		ft_pwd(t_shell *shell);
 int		ft_echo(t_cmd *cmd);
 int		ft_cd(t_shell *shell, t_cmd *cmd);
-int	ft_export(t_shell *shell, t_cmd *cmd);
+int		ft_export(t_shell *shell, t_cmd *cmd);
+int		ft_unset(t_shell *shell, t_cmd *cmd);
+int		ft_env(t_shell *shell, t_cmd *cmd);
+int		ft_exit(t_shell *shell, t_cmd *cmd);
 //------------------builtin utls------------------------------------
 char	*get_key_value(char *key, t_shell *shell);
 void	update_env_variable(t_shell *shell, char *key, char *new_value);
 int		ft_is_valid_identifier(const char *str);
 void	ft_add_or_update_env(t_shell *shell, const char *var_with_value);
 char	**ft_realloc_env(char **envp, const char *new_entry);
-
+void	ft_remove_from_env(t_shell *shell, const char *key);
+int		ft_is_numeric(const char *str);
 //-------------------utils------------------------------
 void	free_array(char **array);
+void	ft_cleanup_shell(t_shell *shell);
 #endif
 
 /*
 gcc -Wall -Werror -Wextra builtins/builtin_pwd.c builtins/builtin_echo.c 
-builtins/builtin_cd.c executor/execute_command.c main_jess.c executor/path.c -Llibft -lft -lreadline
+builtins/builtin_cd.c executor/execute_command.c main_jess.c builtins/path.c 
+builtins/builtin_utils.c builtins/builtin_export.c builtins/builtin_unset.c 
+builtins/builtin_env.c builtins/builtin_exit.c -Llibft -lft -lreadline
 */

@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/15 12:04:24 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:56:28 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int execute_command(t_cmd *cmd, t_shell *shell)
 		return (ft_cd(shell, cmd));
 	if (ft_strncmp(cmd->argv[0], "export", 6) == 0)
 		return (ft_export(shell, cmd));
+	if (ft_strncmp(cmd->argv[0], "unset", 5) == 0)
+		return (ft_unset(shell, cmd));
+	if (ft_strncmp(cmd->argv[0], "env", 3) == 0)
+		return (ft_env(shell, cmd));
+	if (ft_strncmp(cmd->argv[0], "exit", 4) == 0)
+		return (ft_exit(shell, cmd));
 	if (!(access(cmd->argv[0], X_OK) == 0))
 	{
 		cmd->argv[0] = find_executable(cmd->argv[0], shell->envp);

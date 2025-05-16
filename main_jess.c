@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/15 10:32:59 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:50:17 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int main(int argc, char **argv, char **envp)
 			free_array(cmd.argv);
 			continue;
 		}
-		if (ft_strncmp(cmd.argv[0], "exit", 4) == 0)
+		/*if (ft_strncmp(cmd.argv[0], "exit", 4) == 0)
 		{
 			free(line);
 			free_array(cmd.argv);
 			break;
-		}
+		}*/
 
 		// Llamar a execute_command con las estructuras
 		if (cmd.argc > 0)
