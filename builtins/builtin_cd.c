@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:05:58 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 10:31:25 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:45:44 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_cd(t_shell *shell, t_cmd *cmd)
 		perror("getcwd");
 		return (1);
 	}
-	if (!cmd->argv[1])
+	if (!cmd->argv[1] || ft_strncmp(cmd->argv[1], "~", 1) == 0)
 	{
 		path = get_key_value("HOME", shell);
 		if (!path)
