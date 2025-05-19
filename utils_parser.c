@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:43:20 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/12 12:03:14 by mzabal-m         ###   ########.fr       */
+/*   Updated: 2025/05/19 11:05:23 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,28 @@ int	is_metachar(char c)
 int	is_quote(char c)
 {
 	return (c == '\'' || c == '"');
+}
+
+//comprueba comillas mal cerradas
+int	check_closing_quote(const char *s)
+{
+	size_t	i;
+	char	quote;
+
+	i = 0;
+	while (s[i])
+	{
+		if (is_quote(s[i]))
+		{
+			quote = s[i];
+			i++;
+			while (s[i] && s[i] != quote)
+				i++;
+			if (!s[i])
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
