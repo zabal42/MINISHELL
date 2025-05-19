@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:49:00 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 10:51:36 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:15:51 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	ft_unset(t_shell *shell, t_cmd *cmd)
 
 void	ft_remove_from_env(t_shell *shell, const char *key)
 {
-	int i;
-	int j;
-	int key_len;
+	int	i;
+	int	j;
+	int	key_len;
 
 	key_len = ft_strlen(key);
 	i = 0;
 	while (shell->envp[i])
 	{
-		if (ft_strncmp(shell->envp[i], key, key_len) == 0 &&
-			shell->envp[i][key_len] == '=')
+		if (ft_strncmp(shell->envp[i], key, key_len) == 0
+			&& shell->envp[i][key_len] == '=')
 		{
 			free(shell->envp[i]);
 			j = i;

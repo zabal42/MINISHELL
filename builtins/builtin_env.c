@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:00:15 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 12:01:22 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:12:25 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_env(t_shell *shell, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	if (cmd->argc > 1)
 	{

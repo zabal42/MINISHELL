@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:48:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 12:28:59 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:16:05 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_valid_identifier(const char *str)
 {
-	int i;
+	int	i;
 
 	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);

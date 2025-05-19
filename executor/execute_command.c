@@ -6,13 +6,13 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 12:56:28 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 09:47:06 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int execute_command(t_cmd *cmd, t_shell *shell)
+int	execute_command(t_cmd *cmd, t_shell *shell)
 {
 	pid_t	pid;
 	int		status;

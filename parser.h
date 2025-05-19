@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/14 11:50:20 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 09:46:25 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ typedef enum e_token_type
 {
 	T_WORD,
 	T_PIPE,
-	T_REDIR_IN,
-	T_REDIR_OUT,
-	T_REDIR_APPEND,
-	T_HEREDOC
+	T_REDIR_IN,		// <
+	T_REDIR_OUT,	// >
+	T_REDIR_APPEND,	// >>
+	T_HEREDOC		// <<
 }	t_token_type;
 
 typedef struct s_token
@@ -41,7 +41,7 @@ typedef struct s_cmd
 	int		output_fd;
 	char	*error_message;
 	void	*redirections;
-}   t_cmd;
+}	t_cmd;
 
 /* Tokenizer */
 t_token	*tokenize_input(const char *line);

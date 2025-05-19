@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:09:21 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 12:38:44 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:28:01 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_exit(t_shell *shell, t_cmd *cmd)
 {
 	int	exit_code;
 
+	exit_code = 0;
 	if (cmd->argc == 1)
 	{
 		printf("exit\n");

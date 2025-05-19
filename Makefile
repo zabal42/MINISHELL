@@ -3,18 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/12 11:46:58 by mzabal-m         ###   ########.fr        #
+#    Updated: 2025/05/19 10:28:42 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Nombre del ejecutable para test de parseo
-NAME = parser_test
 
-# Archivos fuente del parser
-SRCS = main.c tokenizer.c free.c debug.c utils_parser.c
+NAME = minishell
+
+
+SRCS =	builtins/builtin_cd.c		\
+		builtins/builtin_echo.c		\
+		builtins/builtin_env.c		\
+		builtins/builtin_exit.c		\
+		builtins/builtin_export.c	\
+		builtins/builtin_pwd.c		\
+		builtins/builtin_unset.c	\
+		builtins/builtin_utils.c	\
+		builtins/path.c				\
+		executor/execute_command.c	\
+		main_jess.c
 
 # Objetos
 OBJS = $(SRCS:.c=.o)

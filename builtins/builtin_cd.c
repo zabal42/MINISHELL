@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:05:58 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 13:45:44 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 09:48:47 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ char	*get_key_value(char *key, t_shell *shell)
 	len = ft_strlen(key);
 	while (shell->envp[i])
 	{
-		if (ft_strncmp(shell->envp[i], key, len) == 0 &&
-			shell->envp[i][len] == '=')
+		if (ft_strncmp(shell->envp[i], key, len) == 0
+			&& shell->envp[i][len] == '=')
 			return (&shell->envp[i][len + 1]);
 		i++;
 	}
@@ -94,12 +94,12 @@ void	update_env_variable(t_shell *shell, char *key, char *new_value)
 	i = 0;
 	while (shell->envp[i])
 	{
-		if (ft_strncmp(shell->envp[i], key, len) == 0 &&
-			shell->envp[i][len] == '=')
+		if (ft_strncmp(shell->envp[i], key, len) == 0
+			&& shell->envp[i][len] == '=')
 		{
 			new_entry = ft_strjoin(key, "=");
 			if (!new_entry)
-				return;
+				return ;
 			shell->envp[i] = ft_strjoin(new_entry, new_value);
 			free(new_entry);
 			return ;

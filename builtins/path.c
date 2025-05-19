@@ -6,18 +6,18 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/14 12:58:03 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:17:41 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *find_executable(char *command, char **envp)
+char	*find_executable(char *command, char **envp)
 {
-	char *path_env;
-	char **paths;
-	char *full_path;
-	int i;
+	char	*path_env;
+	char	**paths;
+	char	*full_path;
+	int		i;
 
 	i = 0;
 	path_env = getenv("PATH");
@@ -58,12 +58,12 @@ char *find_executable(char *command, char **envp)
 	return (NULL);
 }
 
-void free_array(char **array)
+void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	if (!array)
-		return;
+		return ;
 	i = 0;
 	while (array[i])
 	{

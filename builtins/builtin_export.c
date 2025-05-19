@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 10:41:22 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 10:14:03 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_export(t_shell *shell, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->argc == 1)
@@ -57,28 +57,28 @@ void	ft_add_or_update_env(t_shell *shell, const char *var_with_value)
 		key_len++;
 	key = malloc(key_len + 1);
 	if (!key)
-		return;
+		return ;
 	ft_strlcpy(key, var_with_value, key_len + 1);
 	value = ft_strdup(&var_with_value[key_len + 1]);
 	i = 0;
 	while (shell->envp[i])
 	{
-		if (ft_strncmp(shell->envp[i], key, key_len) == 0 &&
-			shell->envp[i][key_len] == '=')
+		if (ft_strncmp(shell->envp[i], key, key_len) == 0
+			&& shell->envp[i][key_len] == '=')
 		{
 			new_entry = ft_strjoin(key, "=");
 			if (!new_entry)
 			{
 				free(key);
 				free(value);
-				return;
+				return ;
 			}
 			new_entry = ft_strjoin(new_entry, value);
 			free(shell->envp[i]);
 			shell->envp[i] = new_entry;
 			free(key);
 			free(value);
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -87,7 +87,7 @@ void	ft_add_or_update_env(t_shell *shell, const char *var_with_value)
 	{
 		free(key);
 		free(value);
-		return;
+		return ;
 	}
 	new_entry = ft_strjoin(new_entry, value);
 	shell->envp = ft_realloc_env(shell->envp, new_entry);
