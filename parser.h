@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/19 09:46:25 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:04:02 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,24 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char	**argv;
-	int		argc;
-	char	*full_path;
-	int		is_builtin;
-	int		background;
-	int		input_fd;
-	int		output_fd;
-	char	*error_message;
-	void	*redirections;
+	char		**argv;
+	int			argc;
+	char		*full_path;
+	int			is_builtin;
+	int			background;
+	int			input_fd;
+	int			output_fd;
+	char		*error_message;
+	void		*redirections;
+	struct s_cmd	*next;
 }	t_cmd;
+/*
+typedef struct s_redir
+{
+	t_token_type	type;      // El tipo de redirección (<, >, >>, <<)
+	char			*target;  // El fichero objetivo (o delimitador heredoc)
+	struct s_redir	*next;      // Para listas enlazadas de redirecciones
+}	t_redir; */
 
 /* Tokenizer */
 t_token	*tokenize_input(const char *line);
