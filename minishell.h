@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/16 12:54:38 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/20 10:51:44 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct	s_shell
 //------------executor-------------------------------------
 int 	execute_command(t_cmd *cmd, t_shell *shell);
 char	*find_executable(char *command, char **envp);
+int		exec_builtin(t_cmd *cmd, t_shell *shell);
+int		execute_pipeline(t_cmd *cmds, t_shell *shell);
+int		open_redirections(t_cmd *cmd);
+int		handle_heredoc(const char *delim);
 //-----------builtins---------------------------------------
 int		ft_pwd(t_shell *shell);
 int		ft_echo(t_cmd *cmd);

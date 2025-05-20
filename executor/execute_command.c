@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/19 09:47:06 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:26:39 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,48 @@
 
 int	execute_command(t_cmd *cmd, t_shell *shell)
 {
-	pid_t	pid;
 	int		status;
+	pid_t	pid;
+	int		stdin_copy;
+	int		stdout_copy;
 
-	if (ft_strncmp(cmd->argv[0], "pwd", 3) == 0)
-		return (ft_pwd(shell));
-	if (ft_strncmp(cmd->argv[0], "echo", 4) == 0)
-		return (ft_echo(cmd));
-	if (ft_strncmp(cmd->argv[0], "cd", 2) == 0)
-		return (ft_cd(shell, cmd));
-	if (ft_strncmp(cmd->argv[0], "export", 6) == 0)
-		return (ft_export(shell, cmd));
-	if (ft_strncmp(cmd->argv[0], "unset", 5) == 0)
-		return (ft_unset(shell, cmd));
-	if (ft_strncmp(cmd->argv[0], "env", 3) == 0)
-		return (ft_env(shell, cmd));
-	if (ft_strncmp(cmd->argv[0], "exit", 4) == 0)
-		return (ft_exit(shell, cmd));
-	if (!(access(cmd->argv[0], X_OK) == 0))
+	status = 0;
+	if (cmd->is_builtin)
 	{
-		cmd->argv[0] = find_executable(cmd->argv[0], shell->envp);
-		if (!cmd->argv[0])
+		stdin_copy = dup(STDIN_FILENO); // o 0
+		stdout_copy = dup(STDOUT_FILENO); // o 1
+		if (open_redirections(cmd) < 0)
 		{
-			printf("minishell: %s: command not found\n", cmd->argv[0]);
-			shell->exit_status = 127;
-			return (shell->exit_status);
+			dup2(stdin_copy, STDIN_FILENO);
+			dup2(stdout_copy, STDOUT_FILENO);
+			close(stdin_copy);
+			close(stdout_copy);
+			return (1);
 		}
+		status = exec_builtin(cmd, shell); // devuelve 0 si ejec correcta, 1 si error y 127 comand not found
+		dup2(stdin_copy, STDIN_FILENO);
+		dup2(stdout_copy, STDOUT_FILENO);
+		close(stdin_copy);
+		close(stdout_copy);
+		return (status);
 	}
 	pid = fork();
-	if (pid == -1)
-	{
-		perror("Error al crear el proceso hijo");
-		return (shell->exit_status);
-	}
 	if (pid == 0)
 	{
-		if (execve(cmd->argv[0], cmd->argv, shell->envp) == -1)
-		{
-			perror("Error al ejecutar el comando");
-			exit(127);
-		}
+		if (open_redirections(cmd) < 0)
+			exit(1);
+		execve(cmd->full_path, cmd->argv, shell->envp);
+		perror("execve");
+		exit(127);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		return (WEXITSTATUS(status));
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
-		if (status == 0)
-			shell->exit_status = 0;
-		else if (status == 127)
-			shell->exit_status = 127;
-		else
-			shell->exit_status = 1;
+		perror("fork");
+		return (1);
 	}
-	return (shell->exit_status);
 }
