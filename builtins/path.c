@@ -6,30 +6,52 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 13:19:45 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:27:33 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+static char	*try_path(char *dir, char *cmd)
+{
+	char	*temp;
+	char	*full_path;
+
+	temp = ft_strjoin(dir, "/");
+	if (!temp)
+		return (NULL);
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
+	if (!full_path)
+		return (NULL);
+	if (access(full_path, X_OK) == 0)
+		return (full_path);
+	free(full_path);
+	return (NULL);
+}
+
+static char	*get_path_env(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			return (envp[i] + 5);
+		i++;
+	}
+	return (NULL);
+}
+
 char	*find_executable(char *command, char **envp)
 {
 	char	*path_env;
 	char	**paths;
-	char	*full_path;
+	char	*executable;
 	int		i;
 
-	i = 0;
-	path_env = NULL;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			path_env = envp[i] + 5;
-			break ;
-		}
-		i++;
-	}
+	path_env = get_path_env(envp);
 	if (!path_env)
 		return (NULL);
 	paths = ft_split(path_env, ':');
@@ -38,13 +60,12 @@ char	*find_executable(char *command, char **envp)
 	i = 0;
 	while (paths[i])
 	{
-		full_path = ft_strjoin(paths[i], "/");
-		if (!full_path)
-			return (free_array(paths), full_path);
-		full_path = ft_strjoin(full_path, command);
-		if (access(full_path, X_OK) == 0)
-			return (free_array(paths), full_path);
-		free(full_path);
+		executable = try_path(paths[i], command);
+		if (executable)
+		{
+			free_array(paths);
+			return (executable);
+		}
 		i++;
 	}
 	free_array(paths);
