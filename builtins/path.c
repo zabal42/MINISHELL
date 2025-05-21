@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/19 10:17:41 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:19:45 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,30 @@ char	*find_executable(char *command, char **envp)
 	int		i;
 
 	i = 0;
-	path_env = getenv("PATH");
-	(void)envp;
-	/*
+	path_env = NULL;
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path_env = envp[i] + 5;
-			break;
+			break ;
 		}
 		i++;
-	}*/
+	}
 	if (!path_env)
 		return (NULL);
 	paths = ft_split(path_env, ':');
 	if (!paths)
 		return (NULL);
+	i = 0;
 	while (paths[i])
 	{
 		full_path = ft_strjoin(paths[i], "/");
 		if (!full_path)
-		{
-			free_array(paths);
-			return (NULL);
-		}
+			return (free_array(paths), full_path);
 		full_path = ft_strjoin(full_path, command);
 		if (access(full_path, X_OK) == 0)
-		{
-			free_array(paths);
-			return (full_path);
-		}
+			return (free_array(paths), full_path);
 		free(full_path);
 		i++;
 	}

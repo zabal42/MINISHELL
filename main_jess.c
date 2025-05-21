@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/20 12:22:29 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:27:41 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ t_cmd *parse_mock(const char *line) {
             cmd->argv[i++] = strdup(arg);
             arg = strtok_r(NULL, " \t\n", &saveptr2);
         }
-        cmd->argv[argc] = NULL;
+        cmd->argv[i] = NULL;
+        cmd->argc = i;  // Asegúrate de establecer argc correctamente
         free(tmp);
 
         // Heredoc (solo uno por comando)
-        cmd->redirections = parse_heredoc(cmd->argv, &argc);
+        cmd->redirections = parse_heredoc(cmd->argv, &cmd->argc);
 
         // Detecta builtins (ajusta según tu minishell)
         if (cmd->argv[0] &&
@@ -112,13 +113,48 @@ void free_cmds(t_cmd *cmds) {
     }
 }
 
+// Función para duplicar el entorno
+char **dup_env(char **envp) {
+    int i, count = 0;
+    char **new_env;
+    
+    // Contar entradas
+    while (envp[count])
+        count++;
+    
+    // Asignar memoria para el nuevo entorno
+    new_env = malloc((count + 1) * sizeof(char *));
+    if (!new_env)
+        return NULL;
+    
+    // Duplicar cada cadena
+    for (i = 0; i < count; i++)
+        new_env[i] = strdup(envp[i]);
+    
+    new_env[count] = NULL;
+    return new_env;
+}
+
+// Función para liberar el entorno duplicado
+void free_env(char **env) {
+    int i;
+    
+    if (!env)
+        return;
+    
+    for (i = 0; env[i]; i++)
+        free(env[i]);
+    
+    free(env);
+}
+
 int main(int argc, char **argv, char **envp)
 {
     (void)argc;
     (void)argv;
 
     t_shell shell;
-    shell.envp = envp;
+    shell.envp = dup_env(envp);  // Crear una copia del entorno
     shell.exit_status = 0;
 
     char *line;
@@ -146,5 +182,9 @@ int main(int argc, char **argv, char **envp)
         free(line);
     }
     printf("\nBye!\n");
+    
+    // Liberar la copia del entorno
+    free_env(shell.envp);
+    
     return 0;
 }
