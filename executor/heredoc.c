@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:40:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/20 11:36:57 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:51:15 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	handle_heredoc(const char *delim)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+		if (ft_strlen(line) == ft_strlen(delim)
+			&& ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 		{
 			free(line);
 			break ;

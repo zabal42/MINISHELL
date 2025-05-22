@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:48:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 13:02:07 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:03:12 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_cleanup_shell(t_shell *shell)
 		}
 		free(shell->envp);
 	}
-    // ft_free_history();
-    // ft_free_commands();
+// ft_free_history();
+// ft_free_commands();
 }
 
 int	ft_is_numeric(const char *str)

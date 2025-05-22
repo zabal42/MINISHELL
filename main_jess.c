@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 12:27:41 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:20:08 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int main(int argc, char **argv, char **envp)
 
         // Rellena full_path para comandos externos
         for (t_cmd *c = cmds; c; c = c->next) {
-            if (!c->is_builtin && !c->full_path && c->argv[0])
+            if (!c->is_builtin && c->argv && c->argv[0])
                 c->full_path = find_executable(c->argv[0], shell.envp);
         }
 

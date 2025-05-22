@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 13:27:33 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:13:31 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ static char	*get_path_env(char **envp)
 	return (NULL);
 }
 
+static char	*is_direct_executable(char *command)
+{
+	if (!command || !command[0])
+		return (NULL);
+	if (command[0] == '/' || (command[0] == '.' && command[1] == '/'))
+	{
+		if (access(command, X_OK) == 0)
+			return (ft_strdup(command));
+	}
+	return (NULL);
+}
+
 char	*find_executable(char *command, char **envp)
 {
 	char	*path_env;
@@ -51,6 +63,9 @@ char	*find_executable(char *command, char **envp)
 	char	*executable;
 	int		i;
 
+	executable = is_direct_executable(command);
+	if (executable)
+		return (executable);
 	path_env = get_path_env(envp);
 	if (!path_env)
 		return (NULL);

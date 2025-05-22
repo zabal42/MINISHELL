@@ -6,39 +6,45 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 10:01:41 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 10:38:58 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	execute_command(t_cmd *cmd, t_shell *shell)
+static int	if_is_builtin(t_cmd *cmd, t_shell *shell)
 {
-	int		status;
-	pid_t	pid;
 	int		stdin_copy;
 	int		stdout_copy;
+	int		status;
 
 	status = 0;
-	if (cmd->is_builtin)
+	stdin_copy = dup(STDIN_FILENO);
+	stdout_copy = dup(STDOUT_FILENO);
+	if (open_redirections(cmd) < 0)
 	{
-		stdin_copy = dup(STDIN_FILENO); // o 0
-		stdout_copy = dup(STDOUT_FILENO); // o 1
-		if (open_redirections(cmd) < 0)
-		{
-			dup2(stdin_copy, STDIN_FILENO);
-			dup2(stdout_copy, STDOUT_FILENO);
-			close(stdin_copy);
-			close(stdout_copy);
-			return (1);
-		}
-		status = exec_builtin(cmd, shell); // devuelve 0 si ejec correcta, 1 si error y 127 comand not found
 		dup2(stdin_copy, STDIN_FILENO);
 		dup2(stdout_copy, STDOUT_FILENO);
 		close(stdin_copy);
 		close(stdout_copy);
-		return (status);
+		return (1);
 	}
+	status = exec_builtin(cmd, shell);
+	dup2(stdin_copy, STDIN_FILENO);
+	dup2(stdout_copy, STDOUT_FILENO);
+	close(stdin_copy);
+	close(stdout_copy);
+	return (status);
+}
+
+int	execute_command(t_cmd *cmd, t_shell *shell)
+{
+	int		status;
+	pid_t	pid;
+
+	status = 0;
+	if (cmd->is_builtin)
+		return (if_is_builtin(cmd, shell));
 	pid = fork();
 	if (pid == 0)
 	{

@@ -6,27 +6,40 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 12:50:13 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:46:23 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_update_exist_var(t_shell *shell, char *key, char *value, int i)
+static int	ft_find_existing_var(t_shell *shell, char *key, char *value,
+	size_t key_len)
 {
+	int		i;
 	char	*new_entry;
 	char	*temp;
 
-	new_entry = ft_strjoin(key, "=");
-	if (!new_entry)
-		return ;
-	temp = new_entry;
-	new_entry = ft_strjoin(new_entry, value);
-	free(temp);
-	if (!new_entry)
-		return ;
-	free(shell->envp[i]);
-	shell->envp[i] = new_entry;
+	i = 0;
+	while (shell->envp[i])
+	{
+		if (ft_strncmp(shell->envp[i], key, key_len) == 0
+			&& (shell->envp[i][key_len] == '=' || !shell->envp[i][key_len]))
+		{
+			new_entry = ft_strjoin(key, "=");
+			if (!new_entry)
+				return (0);
+			temp = new_entry;
+			new_entry = ft_strjoin(new_entry, value);
+			free(temp);
+			if (!new_entry)
+				return (0);
+			free(shell->envp[i]);
+			shell->envp[i] = new_entry;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 static void	ft_add_new_var(t_shell *shell, char *key, char *value)
@@ -77,7 +90,7 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 
 void	ft_add_or_update_env(t_shell *shell, const char *var_with_value)
 {
-	int		i;
+	int		found;
 	char	*key;
 	char	*value;
 	size_t	key_len;
@@ -93,20 +106,9 @@ void	ft_add_or_update_env(t_shell *shell, const char *var_with_value)
 		value = ft_strdup(&var_with_value[key_len + 1]);
 	else
 		value = ft_strdup("");
-	i = 0;
-	while (shell->envp[i])
-	{
-		if (ft_strncmp(shell->envp[i], key, key_len) == 0
-			&& (shell->envp[i][key_len] == '=' || !shell->envp[i][key_len]))
-		{
-			ft_update_exist_var(shell, key, value, i);
-			free(key);
-			free(value);
-			return ;
-		}
-		i++;
-	}
-	ft_add_new_var(shell, key, value);
+	found = ft_find_existing_var(shell, key, value, key_len);
+	if (!found)
+		ft_add_new_var(shell, key, value);
 	free(key);
 	free(value);
 }
