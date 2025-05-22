@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:27:56 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 13:13:31 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:31:18 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ char	*find_executable(char *command, char **envp)
 	{
 		executable = try_path(paths[i], command);
 		if (executable)
-		{
-			free_array(paths);
-			return (executable);
-		}
+			return (free_array(paths), executable);
 		i++;
 	}
 	free_array(paths);
