@@ -6,14 +6,13 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:21:30 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/19 13:06:52 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/20 12:08:02 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "parser.h"
 #include "libft.h"
-
 
 /*
 ** print_redirections:

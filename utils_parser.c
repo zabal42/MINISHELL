@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:43:20 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/19 11:05:23 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/20 12:04:35 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ int	check_closing_quote(const char *s)
 	}
 	return (1);
 }
-

@@ -6,7 +6,7 @@
 #    By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/19 12:30:08 by mikelzabal       ###   ########.fr        #
+#    Updated: 2025/05/23 09:54:58 by mikelzabal       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = parser_test
 
 # Archivos fuente del parser
-SRCS = main.c tokenizer.c free.c debug.c utils_parser.c quoted.c debug_cmds.c free_cmds.c parser.c
+SRCS = main.c tokenizer.c free.c debug.c utils_parser.c quoted.c debug_cmds.c free_cmds.c parser.c expander.c parser_tokens.c
 
 # Objetos
 OBJS = $(SRCS:.c=.o)

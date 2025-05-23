@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/19 13:39:34 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 10:30:07 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,74 +63,46 @@ void	add_cmd_to_list(t_cmd **head, t_cmd *new)
 ** Añade una palabra (argumento) al array argv del comando actual.
 ** Incrementa argc y asegura que argv termina en NULL.
 */
-void	add_word_to_cmd(t_cmd *cmd, char *word)
+void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote)
 {
 	char	**new_argv;
+	char	*expanded;
 	int		i;
+
+	// 👁️ Si está entre comillas simples, no se expande
+	if (quote == Q_SINGLE)
+		expanded = ft_strdup(word);
+	else
+		expanded = expand_variables(word, shell->envp, shell->exit_status);
 
 	new_argv = malloc(sizeof(char *) * (cmd->argc + 2));
 	if (!new_argv)
+	{
+		free(expanded);
 		return ;
+	}
+
 	i = 0;
 	while (i < cmd->argc)
 	{
 		new_argv[i] = cmd->argv[i];
 		i++;
 	}
-	new_argv[i++] = ft_strdup(word);
+	new_argv[i++] = expanded;
 	new_argv[i] = NULL;
+
 	free(cmd->argv);
 	cmd->argv = new_argv;
 	cmd->argc++;
 }
 
-/*
-** parse_tokens:
-** Función principal del parser.
-** Convierte la lista de tokens en una lista de estructuras t_cmd,
-** separando los comandos por pipes y agrupando argumentos/redirecciones.
-*/
-t_cmd	*parse_tokens(t_token *tokens)
-{
-	t_cmd	*cmds = NULL;
-	t_cmd	*current = NULL;
 
-	while (tokens)
-	{
-		if (!current)
-		{
-			current = init_cmd();
-			if (!current)
-				return (NULL);
-			add_cmd_to_list(&cmds, current);
-		}
-		if (tokens->type == T_PIPE)
-		{
-			current = NULL;
-			tokens = tokens->next;
-			continue;
-		}
-		else if (tokens->type == T_WORD)
-		{
-			add_word_to_cmd(current, tokens->value);
-			tokens = tokens->next; // ✅ AVANZAS AL SIGUIENTE TOKEN
-		}
-		else if (tokens->type == T_REDIR_IN || tokens->type == T_REDIR_OUT
-				|| tokens->type == T_REDIR_APPEND || tokens->type == T_HEREDOC)
-		{
-			handle_redirection(current, &tokens);
-			continue;
-		}
-		
-	}
-	return (cmds);
-}
 /*
 ** handle_redirection:
 ** Procesa una redirección y la añade a la lista de redirecciones del comando.
 ** Avanza el puntero de token para saltar el archivo objetivo.
 */
-void	handle_redirection(t_cmd *cmd, t_token **tokens)
+void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 {
 	t_token	*redir = *tokens;
 	t_token	*target = redir->next;
@@ -144,7 +116,7 @@ void	handle_redirection(t_cmd *cmd, t_token **tokens)
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return ;
-	new->target = ft_strdup(target->value);
+	new->target = expand_variables(target->value, shell->envp, shell->exit_status);
 	new->next = NULL;
 
 	if (redir->type == T_REDIR_IN)

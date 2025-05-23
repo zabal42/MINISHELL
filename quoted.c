@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:28:51 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/19 10:36:28 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/20 12:07:13 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 /*
 ** extract_one_quoted:
-** Extrae el contenido entre comillas (simples o dobles) a partir de la posición actual.
-** Avanza el índice hasta la comilla de cierre y devuelve el contenido entre ellas.
+** Extrae el contenido entre comillas (simples o dobles)
+** a partir de la posición actual.
+** Avanza el índice hasta la comilla de cierre y
+** devuelve el contenido entre ellas.
 ** Si no encuentra comilla de cierre, devuelve NULL.
 */
 char	*extract_one_quoted(const char *line, size_t *i)

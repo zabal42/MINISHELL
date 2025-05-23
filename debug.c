@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:59:44 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/12 12:16:16 by mzabal-m         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:03:57 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "parser.h"
 
-const char *token_type_str(t_token_type type)
+const char	*token_type_str(t_token_type type)
 {
 	if (type == T_WORD)
 		return ("WORD");
@@ -30,11 +30,12 @@ const char *token_type_str(t_token_type type)
 	return ("UNKNOWN");
 }
 
-void print_tokens(t_token *head)
+void	print_tokens(t_token *head)
 {
 	while (head)
 	{
-		printf("Token: %-12s | Value: '%s'\n", token_type_str(head->type), head->value);
+		printf("Token: %-12s | Value: '%s'\n", token_type_str(head->type),
+			head->value);
 		head = head->next;
 	}
 }

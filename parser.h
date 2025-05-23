@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/19 12:31:42 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 10:31:26 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # include <stddef.h> // para size_t
 
-/* Tipos de tokens */
+/* ───────────────────────────────
+ * TIPOS DE DATOS Y ESTRUCTURAS
+ * ─────────────────────────────── */
+
+/* Tipos de tokens reconocidos por el lexer */
 typedef enum e_token_type
 {
 	T_WORD,
@@ -26,24 +30,33 @@ typedef enum e_token_type
 	T_HEREDOC
 }	t_token_type;
 
-/* Estructura básica de token */
+/* Tipo de comillas de un token */
+typedef enum e_quote_type
+{
+	Q_NONE,
+	Q_SINGLE,
+	Q_DOUBLE
+}	t_quote_type;
+
+/* Nodo de la lista de tokens */
 typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
+	t_quote_type	quote;
 	struct s_token	*next;
 }	t_token;
 
-/* Tipos de redirección */
+/* Tipos de redirección asociados a un comando */
 typedef enum e_redir_type
 {
-	REDIR_IN,     // <
-	REDIR_OUT,    // >
-	REDIR_APPEND, // >>
-	REDIR_HEREDOC // <<
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC
 }	t_redir_type;
 
-/* Redirección asociada a un comando */
+/* Nodo de la lista de redirecciones */
 typedef struct s_redir
 {
 	t_redir_type	type;
@@ -51,7 +64,7 @@ typedef struct s_redir
 	struct s_redir	*next;
 }	t_redir;
 
-/* Comando completo parseado */
+/* Nodo de la lista de comandos */
 typedef struct s_cmd
 {
 	char	**argv;
@@ -66,26 +79,53 @@ typedef struct s_cmd
 	struct s_cmd *next;
 }	t_cmd;
 
-/* Tokenizer */
+/* Estado general del shell (compartido con Jessi) */
+typedef struct s_shell
+{
+	char	**envp;
+	int		exit_status;
+	t_token	*tokens;
+	t_cmd	*cmds;
+}	t_shell;
+
+/* ───────────────────────────────
+ * TOKENIZER
+ * ─────────────────────────────── */
+
 t_token	*tokenize_input(const char *line);
 void	free_tokens(t_token *head);
 void	print_tokens(t_token *head);
 char	*concat_quoted_segments(const char *line, size_t *i);
 
-/* Parser */
-t_cmd	*parse_tokens(t_token *tokens);
+/* ───────────────────────────────
+ * PARSER
+ * ─────────────────────────────── */
+
+t_cmd	*parse_tokens(t_token *tokens, t_shell *shell);
 t_cmd	*init_cmd(void);
-void	add_word_to_cmd(t_cmd *cmd, char *word);
+void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote);
 void	add_cmd_to_list(t_cmd **head, t_cmd *new);
-void	handle_redirection(t_cmd *cmd, t_token **tokens);
+void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell);
 void	add_redir_to_list(t_redir **head, t_redir *new);
 
-/* Utils */
+/* ───────────────────────────────
+ * EXPANSIÓN DE VARIABLES
+ * ─────────────────────────────── */
+
+char	*expand_variables(const char *str, char **envp, int last_status);
+char	*expand_env_variable(char *result, const char *str, size_t *i, char **envp);
+char	*expand_status_code(char *result, int last_status);
+
+/* ───────────────────────────────
+ * FUNCIONES DE UTILIDAD
+ * ─────────────────────────────── */
+
 int		is_space(char c);
 int		is_redirect_char(char c);
 int		is_metachar(char c);
 int		is_quote(char c);
 int		check_closing_quote(const char *s);
+
 void	print_cmds(t_cmd *cmd);
 void	free_cmds(t_cmd *cmd);
 void	free_redirections(t_redir *redir);

@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:19:35 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/19 12:39:22 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/20 12:06:17 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	free_cmds(t_cmd *cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
-
 		if (tmp->argv)
 		{
 			i = 0;
@@ -57,7 +56,6 @@ void	free_cmds(t_cmd *cmd)
 			free(tmp->error_message);
 		if (tmp->redirections)
 			free_redirections(tmp->redirections);
-
 		free(tmp);
 	}
 }
