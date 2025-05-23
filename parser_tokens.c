@@ -6,13 +6,17 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:41:29 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 10:33:39 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 17:54:48 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 #include "parser.h"
+
+
+
 
 /*
 ** parse_tokens:
