@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 14:01:35 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 18:10:53 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 		shell->exit_status = 0;
 		return (0);
 	}
-
 	i = 1;
 	while (cmd->argv[i])
 	{
@@ -125,6 +124,10 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 		}
 		i++;
 	}
+	//printf("🧪 [EXPORT] Final envp dump:\n");
+	//int j = 0;
+	//while (shell->envp[j])
+	//	printf("🧪   %s\n", shell->envp[j++]);
 	return (shell->exit_status);
 }
 

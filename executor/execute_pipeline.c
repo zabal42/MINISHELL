@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 13:38:28 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:08:53 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	{
 		if (cmd->next)
 			pipe(pipefd);
+		if (cmd->is_builtin && !cmd->next && in_fd == STDIN_FILENO)
+		{
+		// Ejecutar el builtin en el padre si es único comando y no hay pipe
+			shell->exit_status = exec_builtin(cmd, shell);
+			return (shell->exit_status);
+		}
 		pid = fork();
 		if (pid == 0)
 			child_process(cmd, shell, in_fd, pipefd);
