@@ -3,25 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-<<<<<<< HEAD
-#    By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/23 09:54:58 by mikelzabal       ###   ########.fr        #
-=======
 #    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/20 10:56:21 by jesssanc         ###   ########.fr        #
->>>>>>> jessi
+#    Updated: 2025/05/23 11:22:15 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-<<<<<<< HEAD
 # Archivos fuente del parser
-SRCS = main.c tokenizer.c free.c debug.c utils_parser.c quoted.c debug_cmds.c free_cmds.c parser.c expander.c parser_tokens.c
-=======
+
 NAME = minishell
 
 
@@ -39,8 +30,17 @@ SRCS =	builtins/builtin_cd.c		\
 		executor/execute_pipeline.c	\
 		executor/redirections.c		\
 		executor/heredoc.c		\
-		main_jess.c
->>>>>>> jessi
+		main_jess.c			\
+		free.C				\
+		tokenizer.c			\
+		debug.c		\
+		utils_parser.c		\
+		quoted.c			\
+		debug_cmds.c		\
+		free_cmds.c			\
+		parser.c			\
+		expander.c			\
+		parser_tokens.c
 
 # Objetos
 OBJS = $(SRCS:.c=.o)

@@ -6,11 +6,12 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 09:55:44 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 11:18:55 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 static t_redir *parse_heredoc(char **argv, int *argc) {
     t_redir *redir = NULL;
@@ -32,7 +33,7 @@ static t_redir *parse_heredoc(char **argv, int *argc) {
     }
     return redir;
 }
-    */
+    
    static t_redir *parse_redirections(char **argv, int *argc) {
     t_redir *first = NULL, *last = NULL;
     int i = 0;
@@ -219,5 +220,49 @@ int main(int argc, char **argv, char **envp)
     // Liberar la copia del entorno
     free_env(shell.envp);
     
+    return 0;
+}*/
+
+t_cmd    *parse_line(const char *line);
+void     free_cmds(t_cmd *cmds);
+char     **dup_env(char **envp);
+void     free_env(char **env);
+
+int main(int argc, char **argv, char **envp)
+{
+    (void)argc;
+    (void)argv;
+    t_shell shell;
+    shell.envp = dup_env(envp);
+    shell.exit_status = 0;
+
+    char *line = NULL;
+    while ((line = readline("minishell> ")) != NULL)
+    {
+        if (*line)
+            add_history(line);
+
+        // PARSE
+        t_cmd *cmds = parse_line(line);
+
+        // Rellena full_path para externos (si es necesario)
+        for (t_cmd *c = cmds; c; c = c->next)
+        {
+            if (!c->is_builtin && !c->full_path && c->argv[0])
+                c->full_path = find_executable(c->argv[0], shell.envp);
+        }
+
+        // EJECUTA
+        if (cmds && cmds->next == NULL)
+            shell.exit_status = execute_command(cmds, &shell);
+        else if (cmds)
+            shell.exit_status = execute_pipeline(cmds, &shell);
+
+        free_cmds(cmds);
+        free(line);
+    }
+    printf("\nBye!\n");
+
+    free_env(shell.envp);
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/20 10:51:44 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 11:14:20 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef	struct s_cmd
 	int			append;
 	char		*heredoc_delim;
 	struct s_cmd	*next;
-}	t_cmd;*/
+}	t_cmd;
 
 typedef struct	s_shell
 {
@@ -45,7 +45,7 @@ typedef struct	s_shell
 	int		exit_status;
 	//t_token	*tokens;
 	t_cmd	*cmds;
-}	t_shell;
+}	t_shell; */
 
 //------------executor-------------------------------------
 int 	execute_command(t_cmd *cmd, t_shell *shell);
