@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 13:44:48 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 13:51:08 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	shell.envp = dup_env(envp);
 	shell.exit_status = 0;
+	shell.tokens = NULL;
+	shell.cmds = NULL;
 
 	while (1)
 	{

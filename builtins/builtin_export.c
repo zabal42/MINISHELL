@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 13:38:40 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 14:01:35 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static void	ft_add_new_var(t_shell *shell, char *key, char *value)
 	free(temp);
 	if (!new_entry)
 		return ;
+
+	// 💥 CLAVE: esto es lo que te faltaba
 	shell->envp = ft_realloc_env(shell->envp, new_entry);
+
 	free(new_entry);
 }
 /*
@@ -143,14 +146,16 @@ void	ft_add_or_update_env(t_shell *shell, const char *var_with_value)
 		value = ft_strdup(&var_with_value[key_len + 1]);
 	else
 		value = ft_strdup("");
+
 	found = ft_find_existing_var(shell, key, value, key_len);
 	if (!found)
-		ft_add_new_var(shell, key, value);
+		ft_add_new_var(shell, key, value); // 🔥 aquí debe asignar a shell->envp
+
 	free(key);
 	free(value);
 }
 
-char	**ft_realloc_env(char **envp, const char *new_entry)
+char **ft_realloc_env(char **envp, const char *new_entry)
 {
 	int		i;
 	char	**new_envp;
@@ -170,6 +175,6 @@ char	**ft_realloc_env(char **envp, const char *new_entry)
 	new_envp[i] = ft_strdup(new_entry);
 	new_envp[i + 1] = NULL;
 
-	// No liberamos envp aquí: se hará en ft_cleanup_shell()
+	// ❌ No hagas free(envp) aquí, libéralo en ft_cleanup_shell
 	return (new_envp);
 }
