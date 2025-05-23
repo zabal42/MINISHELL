@@ -6,12 +6,12 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 13:20:08 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 09:55:44 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static t_redir *parse_heredoc(char **argv, int *argc) {
     t_redir *redir = NULL;
     for (int i = 0; argv[i]; ++i) {
@@ -20,8 +20,8 @@ static t_redir *parse_heredoc(char **argv, int *argc) {
             redir->type = REDIR_HEREDOC;
             redir->target = strdup(argv[i + 1]);
             // Elimina << y DELIM de argv
-            free(argv[i]);
-            free(argv[i + 1]);
+           // free(argv[i]);
+            //free(argv[i + 1]);
             for (int j = i; argv[j + 2]; ++j)
                 argv[j] = argv[j + 2];
             argv[*argc - 2] = NULL;
@@ -31,6 +31,39 @@ static t_redir *parse_heredoc(char **argv, int *argc) {
         }
     }
     return redir;
+}
+    */
+   static t_redir *parse_redirections(char **argv, int *argc) {
+    t_redir *first = NULL, *last = NULL;
+    int i = 0;
+    while (argv[i]) {
+        int type = 0;
+        if (strcmp(argv[i], "<") == 0 && argv[i + 1]) type = REDIR_IN;
+        else if (strcmp(argv[i], ">") == 0 && argv[i + 1]) type = REDIR_OUT;
+        else if (strcmp(argv[i], ">>") == 0 && argv[i + 1]) type = REDIR_APPEND;
+        else if (strcmp(argv[i], "<<") == 0 && argv[i + 1]) type = REDIR_HEREDOC;
+        if (type) {
+            t_redir *redir = calloc(1, sizeof(t_redir));
+            redir->type = type;
+            redir->target = strdup(argv[i + 1]);
+            if (!first) first = redir;
+            if (last) last->next = redir;
+            last = redir;
+            // Compactar argv: mover todo dos posiciones atrás
+            int j = i;
+            while (argv[j + 2]) {
+                argv[j] = argv[j + 2];
+                j++;
+            }
+            argv[j] = NULL;
+            argv[j + 1] = NULL;
+            *argc -= 2;
+            // No incrementes i, hay nuevo valor en argv[i]
+        } else {
+            i++;
+        }
+    }
+    return first;
 }
 
 t_cmd *parse_mock(const char *line) {
@@ -60,8 +93,8 @@ t_cmd *parse_mock(const char *line) {
         cmd->argc = i;  // Asegúrate de establecer argc correctamente
         free(tmp);
 
-        // Heredoc (solo uno por comando)
-        cmd->redirections = parse_heredoc(cmd->argv, &cmd->argc);
+        //cmd->redirections = parse_heredoc(cmd->argv, &cmd->argc);
+        cmd->redirections = parse_redirections(cmd->argv, &cmd->argc);
 
         // Detecta builtins (ajusta según tu minishell)
         if (cmd->argv[0] &&

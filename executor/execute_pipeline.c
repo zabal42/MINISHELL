@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 12:14:58 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:38:28 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	int		status;
 	pid_t	pid;
 	t_cmd	*cmd;
-	//int		last_pid;
-	//last_pid = -1;
+
 	cmd = cmds;
 	in_fd = STDIN_FILENO;
 	status = 0;
