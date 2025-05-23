@@ -6,7 +6,7 @@
 #    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/23 11:22:15 by jesssanc         ###   ########.fr        #
+#    Updated: 2025/05/23 11:26:37 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =	builtins/builtin_cd.c		\
 		executor/redirections.c		\
 		executor/heredoc.c		\
 		main_jess.c			\
-		free.C				\
+		free.c				\
 		tokenizer.c			\
 		debug.c		\
 		utils_parser.c		\

@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:19:52 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 11:18:55 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 11:36:37 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,46 +223,69 @@ int main(int argc, char **argv, char **envp)
     return 0;
 }*/
 
-t_cmd    *parse_line(const char *line);
-void     free_cmds(t_cmd *cmds);
-char     **dup_env(char **envp);
-void     free_env(char **env);
+char **dup_env(char **envp) {
+    int i, count = 0;
+    char **new_env;
+    while (envp[count])
+        count++;
+    new_env = malloc((count + 1) * sizeof(char *));
+    if (!new_env)
+        return NULL;
+    for (i = 0; i < count; i++)
+        new_env[i] = strdup(envp[i]);
+    new_env[count] = NULL;
+    return new_env;
+}
 
-int main(int argc, char **argv, char **envp)
+void free_env(char **env) {
+    int i;
+    if (!env)
+        return;
+    for (i = 0; env[i]; i++)
+        free(env[i]);
+    free(env);
+}
+
+int	main(int argc, char **argv, char **envp)
 {
-    (void)argc;
-    (void)argv;
-    t_shell shell;
-    shell.envp = dup_env(envp);
-    shell.exit_status = 0;
+	(void)argc;
+	(void)argv;
+	t_shell shell;
+	char *line;
+	t_cmd *cmds = NULL;
+	t_token *tokens = NULL;
 
-    char *line = NULL;
-    while ((line = readline("minishell> ")) != NULL)
-    {
-        if (*line)
-            add_history(line);
+	shell.envp = dup_env(envp);
+	shell.exit_status = 0;
 
-        // PARSE
-        t_cmd *cmds = parse_line(line);
+	while ((line = readline("minishell> ")) != NULL)
+	{
+		if (*line)
+			add_history(line);
 
-        // Rellena full_path para externos (si es necesario)
-        for (t_cmd *c = cmds; c; c = c->next)
-        {
-            if (!c->is_builtin && !c->full_path && c->argv[0])
-                c->full_path = find_executable(c->argv[0], shell.envp);
-        }
+		tokens = tokenize_input(line);
+		// Opcional: print_tokens(tokens); // Para debug
 
-        // EJECUTA
-        if (cmds && cmds->next == NULL)
-            shell.exit_status = execute_command(cmds, &shell);
-        else if (cmds)
-            shell.exit_status = execute_pipeline(cmds, &shell);
+		cmds = parse_tokens(tokens, &shell);
 
-        free_cmds(cmds);
-        free(line);
-    }
-    printf("\nBye!\n");
+		if (cmds)
+		{
+			for (t_cmd *c = cmds; c; c = c->next)
+				if (!c->is_builtin && c->argv && c->argv[0])
+					c->full_path = find_executable(c->argv[0], shell.envp);
 
-    free_env(shell.envp);
-    return 0;
+			if (cmds->next == NULL)
+				execute_command(cmds, &shell);
+			else
+				execute_pipeline(cmds, &shell);
+
+			free_cmds(cmds);
+		}
+		free_tokens(tokens);
+		free(line);
+	}
+
+	printf("\nBye!\n");
+	free_env(shell.envp);
+	return 0;
 }
