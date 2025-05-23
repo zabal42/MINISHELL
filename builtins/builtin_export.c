@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 09:46:23 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:38:40 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ft_add_new_var(t_shell *shell, char *key, char *value)
 	shell->envp = ft_realloc_env(shell->envp, new_entry);
 	free(new_entry);
 }
-
+/*
 int	ft_export(t_shell *shell, t_cmd *cmd)
 {
 	int	i;
@@ -70,6 +70,43 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 			printf("declare -x %s\n", shell->envp[i++]);
 		return (0);
 	}
+	i = 1;
+	while (cmd->argv[i])
+	{
+		if (!ft_is_valid_identifier(cmd->argv[i]))
+		{
+			printf("export: `%s': not a valid identifier\n", cmd->argv[i]);
+			shell->exit_status = 1;
+		}
+		else
+		{
+			ft_add_or_update_env(shell, cmd->argv[i]);
+			shell->exit_status = 0;
+		}
+		i++;
+	}
+	return (shell->exit_status);
+}
+	*/
+int	ft_export(t_shell *shell, t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd->argv[1])
+	{
+		i = 0;
+		while (shell->envp[i])
+		{
+			if (ft_strchr(shell->envp[i], '='))
+				printf("declare -x %s\n", shell->envp[i]);
+			else
+				printf("declare -x %s\n", shell->envp[i]);
+			i++;
+		}
+		shell->exit_status = 0;
+		return (0);
+	}
+
 	i = 1;
 	while (cmd->argv[i])
 	{
@@ -127,11 +164,12 @@ char	**ft_realloc_env(char **envp, const char *new_entry)
 	i = 0;
 	while (envp[i])
 	{
-		new_envp[i] = envp[i];
+		new_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	new_envp[i] = ft_strdup(new_entry);
 	new_envp[i + 1] = NULL;
-	free(envp);
+
+	// No liberamos envp aquí: se hará en ft_cleanup_shell()
 	return (new_envp);
 }

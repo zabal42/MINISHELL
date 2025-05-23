@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/23 11:12:36 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:45:31 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_token	*tokenize_input(const char *line);
 void	free_tokens(t_token *head);
 void	print_tokens(t_token *head);
 char	*concat_quoted_segments(const char *line, size_t *i);
+int		is_builtin_command(const char *cmd);
 
 /* ───────────────────────────────
  * PARSER

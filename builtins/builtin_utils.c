@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:48:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 13:03:12 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:34:39 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_is_valid_identifier(const char *str)
 	}
 	return (1);
 }
-
+/*
 void	ft_cleanup_shell(t_shell *shell)
 {
 	int	i;
@@ -45,6 +45,7 @@ void	ft_cleanup_shell(t_shell *shell)
 // ft_free_history();
 // ft_free_commands();
 }
+*/
 
 int	ft_is_numeric(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:41:29 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 10:33:39 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 12:52:18 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,16 @@ t_cmd	*parse_tokens(t_token *tokens, t_shell *shell)
 		handle_token(&tokens, &current, shell);
 	}
 	return (cmds);
+}
+int	is_builtin_command(const char *cmd)
+{
+	if (!cmd)
+		return (0);
+	return (!ft_strncmp(cmd, "cd",2)
+		|| !ft_strncmp(cmd, "echo",4)
+		|| !ft_strncmp(cmd, "env",3)
+		|| !ft_strncmp(cmd, "exit",4)
+		|| !ft_strncmp(cmd, "export",6)
+		|| !ft_strncmp(cmd, "unset",5)
+		|| !ft_strncmp(cmd, "pwd",3));
 }
