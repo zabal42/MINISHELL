@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 11:00:05 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/12 11:00:58 by mzabal-m         ###   ########.fr       */
+/*   Created: 2025/05/12 10:59:50 by jesssanc          #+#    #+#             */
+/*   Updated: 2025/05/19 10:14:22 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "parser.h"
+#include "../minishell.h"
 
-void	free_tokens(t_token *head)
+int	ft_pwd(t_shell *shell)
 {
-	t_token *tmp;
+	char	*dir;
 
-	while (head)
+	dir = getcwd(NULL, 0);
+	if (!dir)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp->value);
-		free(tmp);
+		perror("pwd");
+		shell->exit_status = 1;
+		return (1);
 	}
+	printf("%s\n", dir);
+	free(dir);
+	shell->exit_status = 0;
+	return (0);
 }

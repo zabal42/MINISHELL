@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
 /*   Updated: 2025/05/23 10:31:26 by mikelzabal       ###   ########.fr       */
+=======
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
+/*   Updated: 2025/05/20 09:16:09 by jesssanc         ###   ########.fr       */
+>>>>>>> jessi
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +37,7 @@ typedef enum e_token_type
 	T_HEREDOC
 }	t_token_type;
 
+<<<<<<< HEAD
 /* Tipo de comillas de un token */
 typedef enum e_quote_type
 {
@@ -39,6 +47,9 @@ typedef enum e_quote_type
 }	t_quote_type;
 
 /* Nodo de la lista de tokens */
+=======
+/* Estructura básica de token */
+>>>>>>> jessi
 typedef struct s_token
 {
 	t_token_type	type;
@@ -47,6 +58,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+<<<<<<< HEAD
 /* Tipos de redirección asociados a un comando */
 typedef enum e_redir_type
 {
@@ -57,6 +69,18 @@ typedef enum e_redir_type
 }	t_redir_type;
 
 /* Nodo de la lista de redirecciones */
+=======
+/* Tipos de redirección */
+typedef enum e_redir_type
+{
+	REDIR_IN,     // <
+	REDIR_OUT,    // >
+	REDIR_APPEND, // >>
+	REDIR_HEREDOC // <<
+}	t_redir_type;
+
+/* Redirección asociada a un comando */
+>>>>>>> jessi
 typedef struct s_redir
 {
 	t_redir_type	type;
@@ -64,7 +88,11 @@ typedef struct s_redir
 	struct s_redir	*next;
 }	t_redir;
 
+<<<<<<< HEAD
 /* Nodo de la lista de comandos */
+=======
+/* Comando completo parseado */
+>>>>>>> jessi
 typedef struct s_cmd
 {
 	char	**argv;
