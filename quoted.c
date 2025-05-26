@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:28:51 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/20 12:07:13 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/26 12:56:30 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,30 @@ char	*safe_strjoin(char *s1, char *s2)
 
 char	*concat_quoted_segments(const char *line, size_t *i)
 {
-	char	*result;
+	char	*result = NULL;
 	char	*next;
 	char	*temp;
 
-	result = NULL;
-	while (line[*i] && is_quote(line[*i]))
+	while (line[*i])
 	{
-		next = extract_one_quoted(line, i);
+		if (is_quote(line[*i]))
+		{
+			next = extract_one_quoted(line, i);
+		}
+		else if (!is_metachar(line[*i]) && !is_space(line[*i]))
+		{
+			// Captura texto plano sin espacios ni metachars
+			size_t start = *i;
+			while (line[*i] && !is_quote(line[*i]) && !is_space(line[*i]) && !is_metachar(line[*i]))
+				(*i)++;
+			next = ft_substr(line, start, *i - start);
+		}
+		else
+			break;
+
 		if (!next)
 			return (free(result), NULL);
+
 		if (!result)
 			result = next;
 		else
