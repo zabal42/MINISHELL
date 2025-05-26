@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:41:29 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/26 11:32:18 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/26 19:17:00 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_cmd	*parse_tokens(t_token *tokens, t_shell *shell)
 		handle_token(&tokens, &current, shell);
 
 		// "MIRAR" SI EXISTE EN EL PATH SI NO ES BUILTIN
-		if (current && !current->is_builtin && current->argv && current->argv[0] && !current->full_path)
-			current->full_path = find_executable(current->argv[0], shell->envp);
+		//if (current && !current->is_builtin && current->argv && current->argv[0] && !current->full_path)
+		//	current->full_path = find_executable(current->argv[0], shell->envp);
 	}
 	return (cmds);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_jessizabal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 13:51:08 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/26 19:23:16 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_cleanup_shell(t_shell *shell)
 		free_tokens(shell->tokens);
 }
 
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
@@ -61,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 	shell.envp = dup_env(envp);
 	shell.exit_status = 0;
 	shell.tokens = NULL;
-	shell.cmds = NULL;
+	shell.cmds = init_cmd();
 
 	while (1)
 	{
@@ -79,6 +80,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 
 		shell.cmds = parse_tokens(shell.tokens, &shell);
+		t_cmd *tmp = shell.cmds;
+		while (tmp)
+		{
+    		if (!tmp->is_builtin && tmp->argv && tmp->argv[0] && !tmp->full_path)
+        		tmp->full_path = find_executable(tmp->argv[0], shell.envp);
+    		tmp = tmp->next;
+		}
 		if (shell.cmds)
 			execute_pipeline(shell.cmds, &shell);
 
