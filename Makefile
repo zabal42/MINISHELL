@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+         #
+#    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/23 12:37:54 by mikelzabal       ###   ########.fr        #
+#    Updated: 2025/05/26 14:05:54 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
