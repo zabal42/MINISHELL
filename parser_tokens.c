@@ -6,13 +6,14 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:41:29 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 12:52:18 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/26 11:24:29 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 #include "parser.h"
+#include "minishell.h"
 
 /*
 ** parse_tokens:
@@ -46,7 +47,7 @@ static void	handle_token(t_token **tokens, t_cmd **current, t_shell *shell)
 	}
 	*tokens = tok->next;
 }
-
+/*
 t_cmd	*parse_tokens(t_token *tokens, t_shell *shell)
 {
 	t_cmd	*cmds = NULL;
@@ -61,6 +62,27 @@ t_cmd	*parse_tokens(t_token *tokens, t_shell *shell)
 				return (NULL);
 		}
 		handle_token(&tokens, &current, shell);
+	}
+	return (cmds);
+}*/
+t_cmd	*parse_tokens(t_token *tokens, t_shell *shell)
+{
+	t_cmd	*cmds = NULL;
+	t_cmd	*current = NULL;
+
+	while (tokens)
+	{
+		if (!current)
+		{
+			current = start_new_cmd(&cmds);
+			if (!current)
+				return (NULL);
+		}
+		handle_token(&tokens, &current, shell);
+
+		// "MIRAR" SI EXISTE EN EL PATH SI NO ES BUILTIN
+		if (current && !current->is_builtin && current->argv && current->argv[0] && !current->full_path)
+			current->full_path = find_executable(current->argv[0], shell->envp);
 	}
 	return (cmds);
 }
