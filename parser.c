@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 10:30:07 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/23 13:05:49 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote)
 	char	*expanded;
 	int		i;
 
-	// 👁️ Si está entre comillas simples, no se expande
 	if (quote == Q_SINGLE)
 		expanded = ft_strdup(word);
 	else
 		expanded = expand_variables(word, shell->envp, shell->exit_status);
 
+	// Reservamos espacio para los argumentos anteriores + nuevo + NULL final
 	new_argv = malloc(sizeof(char *) * (cmd->argc + 2));
 	if (!new_argv)
 	{
@@ -82,18 +82,32 @@ void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote)
 		return ;
 	}
 
+	// Duplicamos cada string viejo de argv en el nuevo array
 	i = 0;
 	while (i < cmd->argc)
 	{
-		new_argv[i] = cmd->argv[i];
+		new_argv[i] = ft_strdup(cmd->argv[i]);
 		i++;
 	}
+	// Insertamos el nuevo argumento expandido
 	new_argv[i++] = expanded;
 	new_argv[i] = NULL;
 
-	free(cmd->argv);
+	// Liberamos el antiguo argv (y cada string dentro)
+	if (cmd->argv)
+	{
+		int j = 0;
+		while (cmd->argv[j])
+			free(cmd->argv[j++]);
+		free(cmd->argv);
+	}
+
+	// Actualizamos la estructura
 	cmd->argv = new_argv;
 	cmd->argc++;
+
+	if (cmd->argc == 1)
+		cmd->is_builtin = is_builtin_command(cmd->argv[0]);
 }
 
 
