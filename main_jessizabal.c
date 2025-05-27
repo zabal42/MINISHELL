@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_jessizabal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/26 19:23:16 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:22:11 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ int	main(int argc, char **argv, char **envp)
 	shell.exit_status = 0;
 	shell.tokens = NULL;
 	shell.cmds = init_cmd();
-
+	setup_signals();
 	while (1)
 	{
 		line = readline("minishell> ");
+		
 		if (!line)
 			break;
 		if (*line)

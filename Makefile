@@ -6,7 +6,7 @@
 #    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/26 14:05:54 by jesssanc         ###   ########.fr        #
+#    Updated: 2025/05/27 10:01:07 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,17 +29,18 @@ SRCS =	builtins/builtin_cd.c		\
 		executor/exec_builtin.c		\
 		executor/execute_pipeline.c	\
 		executor/redirections.c		\
-		executor/heredoc.c		\
+		executor/heredoc.c			\
+		executor/signals.c			\
 		main_jessizabal.c			\
-		free.c				\
-		tokenizer.c			\
-		debug.c		\
-		utils_parser.c		\
-		quoted.c			\
-		debug_cmds.c		\
-		free_cmds.c			\
-		parser.c			\
-		expander.c			\
+		free.c						\
+		tokenizer.c					\
+		debug.c						\
+		utils_parser.c				\
+		quoted.c					\
+		debug_cmds.c				\
+		free_cmds.c					\
+		parser.c					\
+		expander.c					\
 		parser_tokens.c
 
 # Objetos

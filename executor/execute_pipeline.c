@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/26 19:13:36 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:29:37 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	child_process(t_cmd *cmd, t_shell *shell, int in_fd, int *pipefd)
 		close(pipefd[1]);
 	}
 	open_redirections(cmd);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (cmd->is_builtin)
 		exit(exec_builtin(cmd, shell)); // Ejecuta builtin en el hijo
 	else
@@ -39,6 +41,8 @@ static int	parent_process(int *in_fd, int *pipefd, t_cmd *cmd, pid_t pid)
 	int	last_pid;
 
 	last_pid = -1;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (*in_fd != STDIN_FILENO)
 		close(*in_fd);
 	if (cmd->next)
