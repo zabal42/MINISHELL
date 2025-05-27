@@ -6,7 +6,7 @@
 #    By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/23 12:37:54 by mikelzabal       ###   ########.fr        #
+#    Updated: 2025/05/27 11:53:37 by mikelzabal       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS =	builtins/builtin_cd.c		\
 		free_cmds.c			\
 		parser.c			\
 		expander.c			\
-		parser_tokens.c
+		parser_tokens.c		\
+		validator.c
 
 # Objetos
 OBJS = $(SRCS:.c=.o)

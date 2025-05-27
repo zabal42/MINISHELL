@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 11:14:20 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:51:38 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		ft_is_numeric(const char *str);
 //-------------------utils------------------------------
 void	free_array(char **array);
 void	ft_cleanup_shell(t_shell *shell);
+int		validate_tokens(t_token *tok);
 #endif
 
 /*

@@ -6,14 +6,18 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:41:29 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/26 11:32:18 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/26 13:15:23 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 #include "parser.h"
 #include "minishell.h"
+
+
+
 
 /*
 ** parse_tokens:
