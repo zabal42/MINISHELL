@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+         #
+#    By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/12 11:24:41 by mzabal-m          #+#    #+#              #
-#    Updated: 2025/05/27 11:53:37 by mikelzabal       ###   ########.fr        #
+#    Updated: 2025/05/27 12:51:07 by jesssanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS =	builtins/builtin_cd.c		\
 		executor/exec_builtin.c		\
 		executor/execute_pipeline.c	\
 		executor/redirections.c		\
-		executor/heredoc.c		\
+		executor/heredoc.c			\
+		executor/signals.c			\
 		main_jessizabal.c			\
 		free.c				\
 		tokenizer.c			\

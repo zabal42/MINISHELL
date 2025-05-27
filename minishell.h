@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 11:51:38 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/27 12:51:48 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+//# define _POSIX_C_SOURCE 199309L
+# define _XOPEN_SOURCE 700
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -74,11 +77,7 @@ int		ft_is_numeric(const char *str);
 void	free_array(char **array);
 void	ft_cleanup_shell(t_shell *shell);
 int		validate_tokens(t_token *tok);
+//---------------------signals-----------------------------------------
+void	handle_sigint(int sig);
+void	setup_signals(void);
 #endif
-
-/*
-gcc -Wall -Werror -Wextra builtins/builtin_pwd.c builtins/builtin_echo.c 
-builtins/builtin_cd.c executor/execute_command.c main_jess.c builtins/path.c 
-builtins/builtin_utils.c builtins/builtin_export.c builtins/builtin_unset.c 
-builtins/builtin_env.c builtins/builtin_exit.c -Llibft -lft -lreadline
-*/
