@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 13:05:49 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/27 11:15:22 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_cmd	*init_cmd(void)
 	cmd->output_fd = -1;
 	cmd->error_message = NULL;
 	cmd->redirections = NULL;
+	cmd->next = NULL;
 	return (cmd);
 }
 

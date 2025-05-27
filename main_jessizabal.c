@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/23 13:51:08 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/27 11:20:22 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,16 @@ int	main(int argc, char **argv, char **envp)
 			break;
 		if (*line)
 			add_history(line);
-
 		shell.tokens = tokenize_input(line);
-		if (!shell.tokens)
+		if (!shell.tokens || !validate_tokens(shell.tokens))
 		{
+			free_tokens(shell.tokens);
 			free(line);
 			continue;
 		}
-
 		shell.cmds = parse_tokens(shell.tokens, &shell);
 		if (shell.cmds)
 			execute_pipeline(shell.cmds, &shell);
-
 		free_tokens(shell.tokens);
 		free_cmds(shell.cmds);
 		free(line);
