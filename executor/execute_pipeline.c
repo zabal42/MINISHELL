@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 12:29:37 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:17:37 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	child_process(t_cmd *cmd, t_shell *shell, int in_fd, int *pipefd)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (in_fd != STDIN_FILENO) // si no es el primer comando
 	{
 		dup2(in_fd, STDIN_FILENO);
@@ -25,9 +27,8 @@ static void	child_process(t_cmd *cmd, t_shell *shell, int in_fd, int *pipefd)
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 	}
-	open_redirections(cmd);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	if (open_redirections(cmd) < 0)
+		exit(1);
 	if (cmd->is_builtin)
 		exit(exec_builtin(cmd, shell)); // Ejecuta builtin en el hijo
 	else
