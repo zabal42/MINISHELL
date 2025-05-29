@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/29 12:22:44 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/29 13:31:32 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	main(int argc, char **argv, char **envp)
 			else
 				execute_pipeline(shell.cmds, &shell); // pipes
 		}
-		free_tokens(shell.tokens);
-		free_cmds(shell.cmds);
 		free(line);
 	}
 	ft_cleanup_shell(&shell);
