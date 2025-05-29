@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 12:51:48 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:34:17 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		exec_builtin(t_cmd *cmd, t_shell *shell);
 int		execute_pipeline(t_cmd *cmds, t_shell *shell);
 int		open_redirections(t_cmd *cmd);
 int		handle_heredoc(const char *delim);
+int		preprocess_heredocs(t_cmd *cmds);
 //-----------builtins---------------------------------------
 int		ft_pwd(t_shell *shell);
 int		ft_echo(t_cmd *cmd);

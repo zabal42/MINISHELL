@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:40:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 12:36:55 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:32:45 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,33 @@ static int run_heredoc_loop(const char *delim, int write_fd)
 	}
 	close(write_fd);
 	exit(0);
+}
+
+int	preprocess_heredocs(t_cmd *cmds)
+{
+	t_cmd *cmd;
+	t_redir *redir;
+
+	cmd = cmds;
+	while (cmd)
+	{
+		redir = cmd->redirections;
+		while (redir)
+		{
+			if (redir->type == REDIR_HEREDOC)
+			{
+				redir->fd = handle_heredoc(redir->target);
+				if (redir->fd < 0)
+				{
+					perror("heredoc");
+					return (1);
+				}
+			}
+			redir = redir->next;
+		}
+		cmd = cmd->next;
+	}
+	return (0);
 }
 
 int handle_heredoc(const char *delim)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 12:29:37 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:33:34 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	cmd = cmds;
 	in_fd = STDIN_FILENO;
 	status = 0;
+	if (preprocess_heredocs(cmds) != 0)
+		return (1);
 	while (cmd)
 	{
 		if (cmd->next)

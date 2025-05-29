@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:28:46 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/22 13:02:13 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:21:59 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	redir_append(t_redir *redir)
 	close(fd);
 	return (0);
 }
-
+/*
 static int	redir_heredoc(t_redir *redir)
 {
 	int	fd;
@@ -69,6 +69,14 @@ static int	redir_heredoc(t_redir *redir)
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	return (0);
+}
+*/
+static int redir_heredoc(t_redir *redir) {
+	if (redir->fd < 0)
+		return (-1);
+	dup2(redir->fd, STDIN_FILENO);
+	close(redir->fd);
 	return (0);
 }
 

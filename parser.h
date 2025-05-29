@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/23 12:45:31 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/29 19:20:28 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_redir
 {
 	t_redir_type	type;
 	char			*target;
+	int				fd;
 	struct s_redir	*next;
 }	t_redir;
 
