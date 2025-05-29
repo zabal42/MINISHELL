@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_jessizabal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/27 12:51:25 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:22:44 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	main(int argc, char **argv, char **envp)
 	shell.exit_status = 0;
 	shell.tokens = NULL;
 	shell.cmds = init_cmd();
-	setup_signals();
+	
 	while (1)
 	{
+		setup_signals();
 		line = readline("minishell> ");
-		
 		if (!line)
 			break;
 		if (*line)
@@ -88,7 +88,12 @@ int	main(int argc, char **argv, char **envp)
     		tmp = tmp->next;
 		}
 		if (shell.cmds)
-			execute_pipeline(shell.cmds, &shell);
+		{
+			if (shell.cmds->next == NULL)
+				execute_command(shell.cmds, &shell); // solo un comando
+			else
+				execute_pipeline(shell.cmds, &shell); // pipes
+		}
 		free_tokens(shell.tokens);
 		free_cmds(shell.cmds);
 		free(line);
