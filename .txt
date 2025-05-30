@@ -1,0 +1,1 @@
+mzabalm dijo: '/usr/bin/zsh es mi shell'

@@ -6,7 +6,7 @@
 #    By: Zabal42                                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/28                                #+#    #+#              #
-#    Updated: 2025/05/28 21:44:17 by mzabal-m         ###   ########.fr        #
+#    Updated: 2025/05/30 11:16:18 by mzabal-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ TOTAL_SRC := $(words $(SRCS))
 COUNT_SRC := 0
 MAKEFLAGS += --no-print-directory
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR)/inc
+CFLAGS = -Wall -Wextra -Werror -g -I$(LIBFT_DIR)/inc
 RL_FLAGS = -lreadline
 
 LIBFT_DIR = libft
