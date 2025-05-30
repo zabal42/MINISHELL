@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:19:35 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/26 11:22:03 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/30 19:28:10 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "parser.h"
 #include "libft.h"
+#include "minishell.h"
 
 /*
 ** free_redirections:

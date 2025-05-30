@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/27 12:52:00 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:25:57 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 		return ;
 	new->target = expand_variables(target->value, shell->envp, shell->exit_status);
 	new->next = NULL;
-
+	new->fd = -1;
 	if (redir->type == T_REDIR_IN)
 		new->type = REDIR_IN;
 	else if (redir->type == T_REDIR_OUT)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:20:11 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/27 12:27:58 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/05/30 20:15:29 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	execute_command(t_cmd *cmd, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		restore_signals();
 		if (open_redirections(cmd) < 0)
 			exit(1);
 		execve(cmd->full_path, cmd->argv, shell->envp);
@@ -58,15 +57,11 @@ int	execute_command(t_cmd *cmd, t_shell *shell)
 	}
 	else if (pid > 0)
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		ignore_signals();
 		waitpid(pid, &status, 0);
 		setup_signals();
 		return (WEXITSTATUS(status));
 	}
 	else
-	{
-		perror("fork");
-		return (1);
-	}
+		return (perror("fork"), (1));
 }
