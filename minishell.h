@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/31 11:54:37 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/31 13:43:44 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ int		ft_is_numeric(const char *str);
 void	free_array(char **array);
 void	ft_cleanup_shell(t_shell *shell);
 int		validate_tokens(t_token *tok);
+char	**dup_env(char **envp);
+void	setup_shell(t_shell *shell, char **envp);
+void	cleanup_loop(t_shell *shell, char *line);
+void	assign_cmds_full_path(t_cmd *cmds, char **envp);
 //---------------------signals-----------------------------------------
 void	handle_sigint(int sig);
 void	setup_signals(void);

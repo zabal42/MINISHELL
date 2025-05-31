@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:35:20 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/30 18:53:25 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 12:23:32 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,7 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 	{
 		i = 0;
 		while (shell->envp[i])
-		{
-			if (ft_strchr(shell->envp[i], '='))
-				printf("declare -x %s\n", shell->envp[i]);
-			else
-				printf("declare -x %s\n", shell->envp[i]);
-			i++;
-		}
+			printf("declare -x %s\n", shell->envp[i++]);
 		shell->exit_status = 0;
 		return (0);
 	}
@@ -86,10 +80,7 @@ int	ft_export(t_shell *shell, t_cmd *cmd)
 			shell->exit_status = 1;
 		}
 		else
-		{
 			ft_add_or_update_env(shell, cmd->argv[i]);
-			shell->exit_status = 0;
-		}
 		i++;
 	}
 	return (shell->exit_status);

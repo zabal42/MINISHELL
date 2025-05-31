@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:48:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 13:34:39 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/31 12:36:32 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_is_valid_identifier(const char *str)
 	}
 	return (1);
 }
-/*
+
 void	ft_cleanup_shell(t_shell *shell)
 {
 	int	i;
@@ -36,16 +36,21 @@ void	ft_cleanup_shell(t_shell *shell)
 	{
 		i = 0;
 		while (shell->envp[i])
-		{
-			free(shell->envp[i]);
-			i++;
-		}
+			free(shell->envp[i++]);
 		free(shell->envp);
+		shell->envp = NULL;
 	}
-// ft_free_history();
-// ft_free_commands();
+	if (shell->cmds)
+	{
+		free_cmds(shell->cmds);
+		shell->cmds = NULL;
+	}
+	if (shell->tokens)
+	{
+		free_tokens(shell->tokens);
+		shell->tokens = NULL;
+	}
 }
-*/
 
 int	ft_is_numeric(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/30 20:24:44 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 12:28:30 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 		if (cmd->next)
 			pipe(pipefd);
 		if (cmd->is_builtin && !cmd->next && in_fd == STDIN_FILENO)
-		{
-			shell->exit_status = exec_builtin(cmd, shell);
-			return (shell->exit_status);
-		}
+			return (shell->exit_status = exec_builtin(cmd, shell));
 		pid = fork();
 		if (pid == 0)
 			child_process(cmd, shell, in_fd, pipefd);

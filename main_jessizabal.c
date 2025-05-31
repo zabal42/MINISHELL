@@ -6,56 +6,45 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:36:18 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/30 19:38:37 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 13:24:46 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **dup_env(char **envp)
+int	should_continue(t_shell *shell, char *line)
 {
-	int		i, count = 0;
-	char	**new_env;
+	free_tokens(shell->tokens);
+	shell->tokens = NULL;
+	free(line);
+	return (1);
+}
 
-	while (envp[count])
-		count++;
-	new_env = malloc((count + 1) * sizeof(char *));
-	if (!new_env)
+void	execute_shell_cmds(t_shell *shell)
+{
+	if (shell->cmds->next == NULL)
+		execute_command(shell->cmds, shell);
+	else
+		execute_pipeline(shell->cmds, shell);
+}
+
+char	*get_input_line(void)
+{
+	char	*line;
+
+	line = readline("minishell> ");
+	if (!line)
 		return (NULL);
-	i = 0;
-	while (i < count)
-	{
-		new_env[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	new_env[count] = NULL;
-	return (new_env);
+	if (*line)
+		add_history(line);
+	return (line);
 }
-void	ft_cleanup_shell(t_shell *shell)
+
+int	continue_with_cleanup(t_shell *shell, char *line)
 {
-	int	i;
-
-	// Liberar el entorno duplicado
-	if (shell->envp)
-	{
-		i = 0;
-		while (shell->envp[i])
-			free(shell->envp[i++]);
-		free(shell->envp);
-		shell->envp = NULL;
-	}
-	if (shell->cmds)
-	{
-		free_cmds(shell->cmds);
-		shell->cmds = NULL;
-	}
-	if (shell->tokens)
-	{
-		free_tokens(shell->tokens);
-		shell->tokens = NULL;
-	}
+	cleanup_loop(shell, line);
+	return (1);
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -64,57 +53,24 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	shell.envp = dup_env(envp);
-	shell.exit_status = 0;
-	shell.tokens = NULL;
-	shell.cmds = NULL;
-	
+	setup_shell(&shell, envp);
 	while (1)
 	{
 		setup_signals();
-		line = readline("minishell> ");
+		line = get_input_line();
 		if (!line)
-			break;
-		if (*line)
-			add_history(line);
+			break ;
 		shell.tokens = tokenize_input(line);
 		if (!shell.tokens || !validate_tokens(shell.tokens))
-		{
-			free_tokens(shell.tokens);
-			shell.tokens = NULL;
-			free(line);
-			continue;
-		}
+			if (should_continue(&shell, line))
+				continue ;
 		shell.cmds = parse_tokens(shell.tokens, &shell);
 		if (!shell.cmds || preprocess_heredocs(shell.cmds))
-		{
-			free_tokens(shell.tokens);
-			free_cmds(shell.cmds);
-			shell.tokens = NULL;
-			shell.cmds = NULL;
-			free(line);
-			continue;
-		}
-		t_cmd *tmp = shell.cmds;
-		while (tmp)
-		{
-    		if (!tmp->is_builtin && tmp->argv && tmp->argv[0] && !tmp->full_path)
-        		tmp->full_path = find_executable(tmp->argv[0], shell.envp);
-    		tmp = tmp->next;
-		}
-		if (shell.cmds->next == NULL)
-			execute_command(shell.cmds, &shell); // solo un comando
-		else
-			execute_pipeline(shell.cmds, &shell); // pipes
-
-		// ✅ Limpieza al final de cada iteración
-		free_tokens(shell.tokens);
-		free_cmds(shell.cmds);
-		shell.tokens = NULL;
-		shell.cmds = NULL;
-		free(line);
+			continue_with_cleanup(&shell, line);
+		assign_cmds_full_path(shell.cmds, shell.envp);
+		execute_shell_cmds(&shell);
+		cleanup_loop(&shell, line);
 	}
 	ft_cleanup_shell(&shell);
 	return (shell.exit_status);
 }
-
