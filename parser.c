@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/31 11:47:25 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/31 12:14:06 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,30 @@ void	add_cmd_to_list(t_cmd **head, t_cmd *new)
 }
 
 /*
+** clone_and_extend_argv:
+** Clona el array argv existente y añade el argumento expanded al final.
+** Devuelve el nuevo array o NULL en caso de error.
+*/
+static char	**clone_and_extend_argv(char **argv, int argc, char *expanded)
+{
+	char	**new_argv;
+	int		i;
+
+	new_argv = malloc(sizeof(char *) * (argc + 2));
+	if (!new_argv)
+		return (NULL);
+	i = 0;
+	while (i < argc)
+	{
+		new_argv[i] = ft_strdup(argv[i]);
+		i++;
+	}
+	new_argv[i++] = expanded;
+	new_argv[i] = NULL;
+	return (new_argv);
+}
+
+/*
 ** add_word_to_cmd:
 ** Añade una palabra (argumento) al array argv del comando actual.
 ** Incrementa argc y asegura que argv termina en NULL.
@@ -69,27 +93,18 @@ void	add_word_to_cmd(t_cmd *cmd, char *word,
 {
 	char	**new_argv;
 	char	*expanded;
-	int		i;
 	int		j;
 
 	if (quote == Q_SINGLE)
 		expanded = ft_strdup(word);
 	else
 		expanded = expand_variables(word, shell->envp, shell->exit_status);
-	new_argv = malloc(sizeof(char *) * (cmd->argc + 2));
+	new_argv = clone_and_extend_argv(cmd->argv, cmd->argc, expanded);
 	if (!new_argv)
 	{
 		free(expanded);
 		return ;
 	}
-	i = 0;
-	while (i < cmd->argc)
-	{
-		new_argv[i] = ft_strdup(cmd->argv[i]);
-		i++;
-	}
-	new_argv[i++] = expanded;
-	new_argv[i] = NULL;
 	if (cmd->argv)
 	{
 		j = 0;
@@ -104,26 +119,22 @@ void	add_word_to_cmd(t_cmd *cmd, char *word,
 }
 
 /*
-** handle_redirection:
-** Procesa una redirección y la añade a la lista de redirecciones del comando.
-** Avanza el puntero de token para saltar el archivo objetivo.
+** init_redir_structure:
+** Inicializa y devuelve una estructura t_redir a partir de los
+** tokens y el shell.
+** Devuelve NULL si hay error de sintaxis o fallo de malloc.
 */
-void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
+static t_redir	*init_redir_structure(t_token *redir, t_shell *shell)
 {
-	t_token	*redir;
 	t_token	*target;
 	t_redir	*new;
 
-	redir = *tokens;
 	target = redir->next;
 	if (!target || target->type != T_WORD)
-	{
-		cmd->error_message = ft_strdup("syntax error near unexpected token");
-		return ;
-	}
+		return (NULL);
 	new = malloc(sizeof(t_redir));
 	if (!new)
-		return ;
+		return (NULL);
 	new->target = expand_variables(target->value, shell->envp,
 			shell->exit_status);
 	new->next = NULL;
@@ -136,9 +147,28 @@ void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 		new->type = REDIR_APPEND;
 	else if (redir->type == T_HEREDOC)
 		new->type = REDIR_HEREDOC;
-	add_redir_to_list(&cmd->redirections, new);
-	*tokens = target -> next;
+	return (new);
 }
+
+/*
+** handle_redirection:
+** Procesa una redirección y la añade a la lista de redirecciones del comando.
+** Avanza el puntero de token para saltar el archivo objetivo.
+*/
+void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
+{
+	t_redir	*new;
+
+	new = init_redir_structure(*tokens, shell);
+	if (!new)
+	{
+		cmd->error_message = ft_strdup("syntax error near unexpected token");
+		return ;
+	}
+	add_redir_to_list(&cmd->redirections, new);
+	*tokens = (*tokens)->next->next;
+}
+
 /*
 ** add_redir_to_list:
 ** Añade una redirección a la lista enlazada dentro de un t_cmd.
