@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:54:52 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/30 19:25:57 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 11:47:25 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,53 +64,44 @@ void	add_cmd_to_list(t_cmd **head, t_cmd *new)
 ** Añade una palabra (argumento) al array argv del comando actual.
 ** Incrementa argc y asegura que argv termina en NULL.
 */
-void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote)
+void	add_word_to_cmd(t_cmd *cmd, char *word,
+			t_shell *shell, t_quote_type quote)
 {
 	char	**new_argv;
 	char	*expanded;
 	int		i;
+	int		j;
 
 	if (quote == Q_SINGLE)
 		expanded = ft_strdup(word);
 	else
 		expanded = expand_variables(word, shell->envp, shell->exit_status);
-
-	// Reservamos espacio para los argumentos anteriores + nuevo + NULL final
 	new_argv = malloc(sizeof(char *) * (cmd->argc + 2));
 	if (!new_argv)
 	{
 		free(expanded);
 		return ;
 	}
-
-	// Duplicamos cada string viejo de argv en el nuevo array
 	i = 0;
 	while (i < cmd->argc)
 	{
 		new_argv[i] = ft_strdup(cmd->argv[i]);
 		i++;
 	}
-	// Insertamos el nuevo argumento expandido
 	new_argv[i++] = expanded;
 	new_argv[i] = NULL;
-
-	// Liberamos el antiguo argv (y cada string dentro)
 	if (cmd->argv)
 	{
-		int j = 0;
+		j = 0;
 		while (cmd->argv[j])
 			free(cmd->argv[j++]);
 		free(cmd->argv);
 	}
-
-	// Actualizamos la estructura
 	cmd->argv = new_argv;
 	cmd->argc++;
-
 	if (cmd->argc == 1)
 		cmd->is_builtin = is_builtin_command(cmd->argv[0]);
 }
-
 
 /*
 ** handle_redirection:
@@ -119,10 +110,12 @@ void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote)
 */
 void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 {
-	t_token	*redir = *tokens;
-	t_token	*target = redir->next;
+	t_token	*redir;
+	t_token	*target;
 	t_redir	*new;
 
+	redir = *tokens;
+	target = redir->next;
 	if (!target || target->type != T_WORD)
 	{
 		cmd->error_message = ft_strdup("syntax error near unexpected token");
@@ -131,7 +124,8 @@ void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return ;
-	new->target = expand_variables(target->value, shell->envp, shell->exit_status);
+	new->target = expand_variables(target->value, shell->envp,
+			shell->exit_status);
 	new->next = NULL;
 	new->fd = -1;
 	if (redir->type == T_REDIR_IN)
@@ -143,12 +137,13 @@ void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell)
 	else if (redir->type == T_HEREDOC)
 		new->type = REDIR_HEREDOC;
 	add_redir_to_list(&cmd->redirections, new);
-	*tokens = target -> next; // avanzamos
+	*tokens = target -> next;
 }
 /*
 ** add_redir_to_list:
 ** Añade una redirección a la lista enlazada dentro de un t_cmd.
 */
+
 void	add_redir_to_list(t_redir **head, t_redir *new)
 {
 	t_redir	*tmp;
