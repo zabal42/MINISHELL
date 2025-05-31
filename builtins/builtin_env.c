@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:00:15 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/23 13:58:37 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/30 18:50:08 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	ft_env(t_shell *shell, t_cmd *cmd)
 {
 	int	i;
-
-	printf("🧪 [DEBUG] Entrando en ft_env builtin\n");
 
 	if (cmd->argc > 1)
 	{

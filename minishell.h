@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/29 19:34:17 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/30 20:15:22 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,6 @@ int		validate_tokens(t_token *tok);
 //---------------------signals-----------------------------------------
 void	handle_sigint(int sig);
 void	setup_signals(void);
+void	ignore_signals(void);
+void	restore_signals(void);
 #endif

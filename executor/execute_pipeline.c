@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/29 19:33:34 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/30 20:24:44 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	child_process(t_cmd *cmd, t_shell *shell, int in_fd, int *pipefd)
 {
-	if (in_fd != STDIN_FILENO) // si no es el primer comando
+	if (in_fd != STDIN_FILENO)
 	{
 		dup2(in_fd, STDIN_FILENO);
 		close(in_fd);
 	}
-	if (cmd->next) // si no es el último comando
+	if (cmd->next)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -29,7 +29,7 @@ static void	child_process(t_cmd *cmd, t_shell *shell, int in_fd, int *pipefd)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (cmd->is_builtin)
-		exit(exec_builtin(cmd, shell)); // Ejecuta builtin en el hijo
+		exit(exec_builtin(cmd, shell));
 	else
 		execve(cmd->full_path, cmd->argv, shell->envp);
 	perror("execve");
@@ -65,15 +65,12 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	cmd = cmds;
 	in_fd = STDIN_FILENO;
 	status = 0;
-	if (preprocess_heredocs(cmds) != 0)
-		return (1);
 	while (cmd)
 	{
 		if (cmd->next)
 			pipe(pipefd);
 		if (cmd->is_builtin && !cmd->next && in_fd == STDIN_FILENO)
 		{
-		// Ejecutar el builtin en el padre si es único comando y no hay pipe
 			shell->exit_status = exec_builtin(cmd, shell);
 			return (shell->exit_status);
 		}
@@ -84,7 +81,7 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 			parent_process(&in_fd, pipefd, cmd, pid);
 		cmd = cmd->next;
 	}
-	while (wait(&status) > 0) // Espera a todos los hijos
+	while (wait(&status) > 0)
 		continue ;
 	return (WEXITSTATUS(status));
 }
