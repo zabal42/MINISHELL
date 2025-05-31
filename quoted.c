@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:28:51 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/26 12:56:30 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/31 12:05:55 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,47 +58,65 @@ char	*safe_strjoin(char *s1, char *s2)
 	return (joined);
 }
 /*
-** concat_quoted_segments:(“concatenar segmentos entre comillas”)
-** Detecta y concatena múltiples cadenas entre comillas seguidas.
+** concat_quoted_segments:
+** Concatena múltiples segmentos entre comillas seguidos.
 ** - Avanza el índice `i` en cada quoted string detectada.
-** - Termina cuando el siguiente carácter ya no es una comilla.
+** - Termina cuando el siguiente carácter ya no es una comilla,
+**	espacio o metacaracter.
 */
+
+static char	*extract_unquoted_segment(const char *line, size_t *i)
+{
+	size_t	start;
+
+	start = *i;
+	while (line[*i] && !is_quote(line[*i]) && !is_space(line[*i])
+		&& !is_metachar(line[*i]))
+		(*i)++;
+	return (ft_substr(line, start, *i - start));
+}
+
+static int	append_segment(char **result, char *next)
+{
+	char	*temp;
+
+	if (!*result)
+	{
+		*result = next;
+		return (1);
+	}
+	temp = safe_strjoin(*result, next);
+	free(*result);
+	free(next);
+	if (!temp)
+	{
+		*result = NULL;
+		return (0);
+	}
+	*result = temp;
+	return (1);
+}
 
 char	*concat_quoted_segments(const char *line, size_t *i)
 {
-	char	*result = NULL;
+	char	*result;
 	char	*next;
-	char	*temp;
+	size_t	start;
 
+	result = NULL;
 	while (line[*i])
 	{
 		if (is_quote(line[*i]))
-		{
 			next = extract_one_quoted(line, i);
-		}
 		else if (!is_metachar(line[*i]) && !is_space(line[*i]))
 		{
-			// Captura texto plano sin espacios ni metachars
-			size_t start = *i;
-			while (line[*i] && !is_quote(line[*i]) && !is_space(line[*i]) && !is_metachar(line[*i]))
-				(*i)++;
-			next = ft_substr(line, start, *i - start);
+			start = *i;
+			next = extract_unquoted_segment(line, i);
 		}
 		else
-			break;
-
-		if (!next)
+			break ;
+		if (!next || !append_segment(&result, next))
 			return (free(result), NULL);
-
-		if (!result)
-			result = next;
-		else
-		{
-			temp = safe_strjoin(result, next);
-			free(result);
-			free(next);
-			result = temp;
-		}
 	}
 	return (result);
 }

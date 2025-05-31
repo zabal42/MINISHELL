@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzabal-m <mzabal-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:00:05 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/12 11:00:58 by mzabal-m         ###   ########.fr       */
+/*   Updated: 2025/05/31 11:56:11 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	free_tokens(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (head)
 	{
