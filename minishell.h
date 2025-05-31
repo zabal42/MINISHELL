@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:18:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/30 20:15:22 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 11:54:37 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,8 @@
 # include "./libft/inc/libft.h"
 # include "parser.h"
 
-/*
-typedef	struct s_cmd
-{
-	char		**argv;
-	char		*infile;
-	char		*outfile;
-	int			append;
-	char		*heredoc_delim;
-	struct s_cmd	*next;
-}	t_cmd;
-
-typedef struct	s_shell
-{
-	char	**envp;
-	int		exit_status;
-	//t_token	*tokens;
-	t_cmd	*cmds;
-}	t_shell; */
-
 //------------executor-------------------------------------
-int 	execute_command(t_cmd *cmd, t_shell *shell);
+int		execute_command(t_cmd *cmd, t_shell *shell);
 char	*find_executable(char *command, char **envp);
 int		exec_builtin(t_cmd *cmd, t_shell *shell);
 int		execute_pipeline(t_cmd *cmds, t_shell *shell);

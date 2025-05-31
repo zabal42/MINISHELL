@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/29 19:20:28 by jessica          ###   ########.fr       */
+/*   Updated: 2025/05/31 11:53:12 by mikelzabal       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ typedef struct s_redir
 /* Nodo de la lista de comandos */
 typedef struct s_cmd
 {
-	char	**argv;
-	int		argc;
-	char	*full_path;
-	int		is_builtin;
-	int		background;
-	int		input_fd;
-	int		output_fd;
-	char	*error_message;
-	t_redir	*redirections;
-	struct s_cmd *next;
+	char			**argv;
+	int				argc;
+	char			*full_path;
+	int				is_builtin;
+	int				background;
+	int				input_fd;
+	int				output_fd;
+	char			*error_message;
+	t_redir			*redirections;
+	struct s_cmd	*next;
 }	t_cmd;
 
 /* Estado general del shell (compartido con Jessi) */
@@ -105,9 +105,11 @@ int		is_builtin_command(const char *cmd);
 
 t_cmd	*parse_tokens(t_token *tokens, t_shell *shell);
 t_cmd	*init_cmd(void);
-void	add_word_to_cmd(t_cmd *cmd, char *word, t_shell *shell, t_quote_type quote);
+void	add_word_to_cmd(t_cmd *cmd, char *word,
+			t_shell *shell, t_quote_type quote);
 void	add_cmd_to_list(t_cmd **head, t_cmd *new);
-void	handle_redirection(t_cmd *cmd, t_token **tokens, t_shell *shell);
+void	handle_redirection(t_cmd *cmd, t_token **tokens,
+			t_shell *shell);
 void	add_redir_to_list(t_redir **head, t_redir *new);
 
 /* ───────────────────────────────
@@ -115,7 +117,8 @@ void	add_redir_to_list(t_redir **head, t_redir *new);
  * ─────────────────────────────── */
 
 char	*expand_variables(const char *str, char **envp, int last_status);
-char	*expand_env_variable(char *result, const char *str, size_t *i, char **envp);
+char	*expand_env_variable(char *result, const char *str,
+			size_t *i, char **envp);
 char	*expand_status_code(char *result, int last_status);
 
 /* ───────────────────────────────
