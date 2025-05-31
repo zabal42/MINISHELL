@@ -6,7 +6,7 @@
 /*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:28:51 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/31 12:05:55 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/05/31 13:14:53 by mzabal-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ char	*concat_quoted_segments(const char *line, size_t *i)
 {
 	char	*result;
 	char	*next;
-	size_t	start;
 
 	result = NULL;
 	while (line[*i])
@@ -109,10 +108,7 @@ char	*concat_quoted_segments(const char *line, size_t *i)
 		if (is_quote(line[*i]))
 			next = extract_one_quoted(line, i);
 		else if (!is_metachar(line[*i]) && !is_space(line[*i]))
-		{
-			start = *i;
 			next = extract_unquoted_segment(line, i);
-		}
 		else
 			break ;
 		if (!next || !append_segment(&result, next))
