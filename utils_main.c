@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 12:58:23 by jessica           #+#    #+#             */
-/*   Updated: 2025/05/31 12:59:07 by jessica          ###   ########.fr       */
+/*   Updated: 2025/06/02 09:13:01 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	cleanup_loop(t_shell *shell, char *line)
 
 void	assign_cmds_full_path(t_cmd *cmds, char **envp)
 {
-	t_cmd *tmp = cmds;
-	
+	t_cmd	*tmp;
+
+	tmp = cmds;
 	while (tmp)
 	{
 		if (!tmp->is_builtin && tmp->argv && tmp->argv[0] && !tmp->full_path)

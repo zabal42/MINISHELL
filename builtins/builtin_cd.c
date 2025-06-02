@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:05:58 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/21 11:06:40 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/06/02 09:38:54 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_cd(t_shell *shell, t_cmd *cmd)
 	if (select_path(shell, cmd, &path))
 	{
 		free(oldpwd);
-		return (1);
+		return (shell->exit_status = 1);
 	}
 	update_env_variable(shell, "OLDPWD", oldpwd);
 	free(oldpwd);
@@ -61,7 +61,7 @@ int	ft_cd(t_shell *shell, t_cmd *cmd)
 		return (perror("getcwd"), 1);
 	update_env_variable(shell, "PWD", pwd);
 	free(pwd);
-	return (0);
+	return (shell->exit_status = 0);
 }
 
 char	*get_key_value(char *key, t_shell *shell)
