@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/06/02 10:42:21 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:00:39 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,6 @@ int		check_closing_quote(const char *s);
 void	print_cmds(t_cmd *cmd);
 void	free_cmds(t_cmd *cmd);
 void	free_redirections(t_redir *redir);
+char	*ft_strjoin_free(char *s1, const char *s2);
 
 #endif

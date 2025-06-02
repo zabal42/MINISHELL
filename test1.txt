@@ -1,1 +1,0 @@
-hola mundo echo mzabalm's shell is /usr/bin/zsh echo esto no se expande $USER echo mzabalm cat ls

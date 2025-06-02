@@ -31,9 +31,9 @@ SRCS = \
 	builtins/builtin_unset.c builtins/builtin_utils.c builtins/path.c \
 	executor/execute_command.c executor/exec_builtin.c executor/execute_pipeline.c \
 	executor/redirections.c executor/heredoc.c executor/signals.c \
-	main_jessizabal.c free.c tokenizer.c debug.c utils_parser.c quoted.c \
+	main.c free.c tokenizer.c debug.c utils_parser.c quoted.c \
 	debug_cmds.c free_cmds.c parser.c expander.c parser_tokens.c validator.c \
-	utils_main.c token_classify.c token_operator.c
+	utils_main.c token_classify.c token_operator.c init_cmd.c
 
 OBJS = $(SRCS:.c=.o)
 

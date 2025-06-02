@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:06:10 by mikelzabal        #+#    #+#             */
-/*   Updated: 2025/05/31 12:46:48 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/06/02 11:01:20 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #include <string.h>
 #include "libft.h"
 #include "parser.h"
-
-char	*ft_strjoin_free(char *s1, const char *s2)
-{
-	char	*joined;
-
-	if (!s1 || !s2)
-		return (NULL);
-	joined = ft_strjoin(s1, s2);
-	free(s1);
-	return (joined);
-}
 
 static char	*get_env_value(const char *name, char **envp)
 {

@@ -1,1 +1,0 @@
-mzabalm's shell is /usr/bin/zsh

@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:05:58 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/06/02 09:38:54 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:45:52 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	select_path(t_shell *shell, t_cmd *cmd, char **path)
 		*path = get_key_value("HOME", shell);
 		if (!*path)
 		{
-			printf("cd: HOME not set");
+			printf("cd: HOME not set\n");
 			return (1);
 		}
 	}
@@ -28,7 +28,7 @@ static int	select_path(t_shell *shell, t_cmd *cmd, char **path)
 		*path = get_key_value("OLDPWD", shell);
 		if (!*path)
 		{
-			printf("cd: OLDPWD not set");
+			printf("cd: OLDPWD not set\n");
 			return (1);
 		}
 	}
