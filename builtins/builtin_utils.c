@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 10:48:04 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/31 12:36:32 by jessica          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:11:47 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_cleanup_shell(t_shell *shell)
 		free_tokens(shell->tokens);
 		shell->tokens = NULL;
 	}
+	rl_clear_history();
 }
 
 int	ft_is_numeric(const char *str)
