@@ -33,7 +33,7 @@ SRCS = \
 	executor/redirections.c executor/heredoc.c executor/signals.c \
 	main_jessizabal.c free.c tokenizer.c debug.c utils_parser.c quoted.c \
 	debug_cmds.c free_cmds.c parser.c expander.c parser_tokens.c validator.c \
-	utils_main.c
+	utils_main.c token_classify.c token_operator.c
 
 OBJS = $(SRCS:.c=.o)
 

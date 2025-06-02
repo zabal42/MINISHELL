@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelzabal <mikelzabal@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:04:53 by mzabal-m          #+#    #+#             */
-/*   Updated: 2025/05/31 11:53:12 by mikelzabal       ###   ########.fr       */
+/*   Updated: 2025/06/02 10:42:21 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,18 @@ void	add_cmd_to_list(t_cmd **head, t_cmd *new);
 void	handle_redirection(t_cmd *cmd, t_token **tokens,
 			t_shell *shell);
 void	add_redir_to_list(t_redir **head, t_redir *new);
+int		handle_double_operator(const char *line, size_t *i,
+			t_token **tokens);
+int		handle_single_operator(const char *line, size_t *i,
+			t_token **tokens);
+int		handle_pipe_operator(const char *line, size_t *i, t_token **tokens);
+int		handle_operator(const char *line, size_t *i, t_token **tokens);
+int		handle_quoted_segment(const char *line, size_t *i, t_token **tokens);
+void	handle_word_segment(const char *line, size_t *i, t_token **tokens);
+t_token	*new_token(t_token_type type, char *val, t_quote_type quote);
+void	add_token(t_token **head, t_token *new);
+char	*substr_dup(const char *start, size_t len);
+t_token	*tokenize_loop(const char *line, t_token **tokens);
 
 /* ───────────────────────────────
  * EXPANSIÓN DE VARIABLES
