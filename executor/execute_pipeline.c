@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:25:32 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/05/31 12:28:30 by jessica          ###   ########.fr       */
+/*   Updated: 2025/06/02 09:49:46 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ int	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	}
 	while (wait(&status) > 0)
 		continue ;
-	return (WEXITSTATUS(status));
+	return (shell->exit_status = WEXITSTATUS(status));
 }
