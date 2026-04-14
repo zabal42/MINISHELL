@@ -1,6 +1,6 @@
 # minishell (MINIHELL)
 
-> Una implementación ligera de shell Unix escrita en C — proyecto de 42 Urduliz.
+> Una implementación ligera de shell Unix escrita en C — proyecto de 42 Urduliz. Desarrollado por Jessica Sanchez y Mikel Zabal
 
 ![minishell demo](assets/demo.gif)
 
@@ -355,7 +355,7 @@ La shell copia el entorno del proceso padre al iniciarse (`dup_env`). Todas las 
 ---
 ## Autores
 
-- [Mikel Zabal](https://github.com/zabal42)
 - [Jessi](https://github.com/jeiak)
+- [Mikel Zabal](https://github.com/zabal42)
 
 *Proyecto desarrollado en [42 Urduliz](https://www.42urduliz.com/) — 2024/2025.*
