@@ -33,7 +33,7 @@ El proyecto está escrito íntegramente en C, usando únicamente llamadas al sis
 |---|---|
 | **Prompt** | Prompt interactivo con `readline` — soporta movimiento del cursor e historial de entrada |
 | **Ejecución de comandos** | Ejecuta cualquier binario encontrado en `$PATH` mediante `fork` + `execve` |
-| **Tuberías** | Encadena múltiples comandos con `\|` — profundidad ilimitada |
+| **Pipes** | Encadena múltiples comandos con `\|` — profundidad ilimitada |
 | **Redirección de entrada** | `< fichero` — lee stdin desde un fichero |
 | **Redirección de salida** | `> fichero` / `>> fichero` — escribe/añade stdout a un fichero |
 | **Heredoc** | `<< DELIM` — lee entrada multilínea hasta el delimitador |
@@ -305,7 +305,7 @@ llamar a la función integrada directamente (sin fork)
 restaurar fds originales
 ```
 
-**Tubería (n comandos)**
+**Pipe (n comandos)**
 ```
 por cada comando:
     pipe()                      ← crear pipe hacia el siguiente comando
