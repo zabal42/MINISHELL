@@ -1,4 +1,4 @@
-# minishell
+# minishell (MINIHELL)
 
 > Una implementación ligera de shell Unix escrita en C — proyecto de 42 Urduliz.
 
@@ -23,7 +23,7 @@
 
 ## Acerca del proyecto
 
-**minishell** es una shell Unix simplificada desarrollada como parte del currículo de la escuela 42. Implementa una parte esencial del comportamiento de una shell tipo `bash`, incluyendo el ciclo completo de lectura, tokenización, parseo, expansión, gestión de redirecciones, tuberías y ejecución de comandos.
+**minishell**, o MINIHELL como la hemos rebautizado (sí, ha tenido su miga y nos ha costado lo suyo...) es una shell Unix simplificada desarrollada como parte del currículo de la escuela 42. Implementa una parte esencial del comportamiento de una shell tipo `bash`, incluyendo el ciclo completo de lectura, tokenización, parseo, expansión, gestión de redirecciones, tuberías y ejecución de comandos.
 
 El proyecto está escrito íntegramente en C, utilizando llamadas al sistema POSIX y apoyándose en una biblioteca propia ([libft](./libft)) para las operaciones de cadenas, memoria y utilidades comunes.
 
