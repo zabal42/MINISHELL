@@ -25,6 +25,8 @@
 
 El proyecto está escrito íntegramente en C, usando únicamente llamadas al sistema POSIX, y se apoya en una biblioteca C propia ([libft](./libft)) para todas las operaciones de cadenas y memoria.
 
+Probado y funcional tanto en macOS (arm64/x86_64) como en Linux (Debian/Ubuntu).
+
 ---
 
 ## Características
@@ -349,5 +351,8 @@ La shell copia el entorno del proceso padre al iniciarse (`dup_env`). Todas las 
 - Makefile multiplataforma (macOS arm64/x86\_64 + Linux)
 
 ---
+## Autores
 
+- [Mikel Zabal](https://github.com/zabal42)
+- [Jessi](https://github.com/jeiak>)
 *Proyecto desarrollado en [42 Urduliz](https://www.42urduliz.com/) — 2024/2025.*
