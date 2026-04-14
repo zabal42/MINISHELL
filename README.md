@@ -21,9 +21,9 @@
 
 ## Acerca del proyecto
 
-**minishell** es una shell Unix simplificada desarrollada como parte del currículo de la escuela 42. Reproduce el comportamiento principal de `bash`, implementando el ciclo de vida completo de una shell: leer la entrada del usuario, tokenizarla, parsearla en comandos, expandir variables, gestionar redirecciones y tuberías, y finalmente ejecutar los comandos.
+**minishell** es una shell Unix simplificada desarrollada como parte del currículo de la escuela 42. Implementa una parte esencial del comportamiento de una shell tipo `bash`, incluyendo el ciclo completo de lectura, tokenización, parseo, expansión, gestión de redirecciones, tuberías y ejecución de comandos.
 
-El proyecto está escrito íntegramente en C, usando únicamente llamadas al sistema POSIX, y se apoya en una biblioteca C propia ([libft](./libft)) para todas las operaciones de cadenas y memoria.
+El proyecto está escrito íntegramente en C, utilizando llamadas al sistema POSIX y apoyándose en una biblioteca propia ([libft](./libft)) para las operaciones de cadenas, memoria y utilidades comunes.
 
 Probado y funcional tanto en macOS (arm64/x86_64) como en Linux (Debian/Ubuntu).
 
@@ -114,7 +114,6 @@ minishell/
 ├── quoted.c                  # Parseo de cadenas entre comillas
 ├── parser.c                  # Flujo de tokens → lista de comandos
 ├── parser_tokens.c           # Helpers de conversión token-a-comando
-├── token_operator.c          # Despacho de operadores durante el parseo
 ├── utils_parser.c            # Funciones de utilidad del parser
 ├── validator.c               # Validación sintáctica
 ├── expander.c                # Expansión de $VAR y $?
@@ -344,15 +343,17 @@ La shell copia el entorno del proceso padre al iniciarse (`dup_env`). Todas las 
 - Gestión de procesos: `fork`, `execve`, `waitpid`, `pipe`
 - Manipulación de descriptores de fichero: `dup2`, `open`, `close`
 - Manejo de señales: `sigaction`, `signal`
-- Gestión de memoria: `malloc`/`free` manual sin fugas
-- Diseño de lexer/parser: tokenización, parseo recursivo, AST con listas enlazadas
-- Entorno Unix: resolución de `$PATH`, gestión de `envp`
-- Integración POSIX de readline con soporte de historial
+- Gestión manual de memoria dinámica
+- Diseño de lexer/parser: tokenización, validación sintáctica y construcción de estructuras de ejecución
+- Gestión del entorno Unix: resolución de `$PATH`, manipulación de `envp`
+- Integración de `readline` para entrada interactiva e historial
 - Makefile multiplataforma (macOS arm64/x86\_64 + Linux)
+- Desarrollo en C bajo restricciones académicas de 42
 
 ---
 ## Autores
 
 - [Mikel Zabal](https://github.com/zabal42)
-- [Jessi](https://github.com/jeiak>)
+- [Jessi](https://github.com/jeiak)
+
 *Proyecto desarrollado en [42 Urduliz](https://www.42urduliz.com/) — 2024/2025.*
