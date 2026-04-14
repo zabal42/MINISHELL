@@ -14,7 +14,9 @@
 # define MINISHELL_H
 
 //# define _POSIX_C_SOURCE 199309L
-# define _XOPEN_SOURCE 700
+# ifndef __APPLE__
+#  define _XOPEN_SOURCE 700
+# endif
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,7 +26,11 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
-# include <curses.h>
+# ifdef __APPLE__
+#  include <curses.h>
+# else
+#  include <ncurses.h>
+# endif
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>

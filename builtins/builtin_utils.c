@@ -50,7 +50,11 @@ void	ft_cleanup_shell(t_shell *shell)
 		free_tokens(shell->tokens);
 		shell->tokens = NULL;
 	}
+#ifdef RL_VERSION_MAJOR
 	rl_clear_history();
+#else
+	clear_history();
+#endif
 }
 
 int	ft_is_numeric(const char *str)

@@ -19,11 +19,31 @@ TOTAL_SRC := $(words $(SRCS))
 COUNT_SRC := 0
 MAKEFLAGS += --no-print-directory
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I$(LIBFT_DIR)/inc
-RL_FLAGS = -lreadline
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
+# -------------------------------------------------------------------- #
+#                     DETECCIÓN DE PLATAFORMA                          #
+# -------------------------------------------------------------------- #
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    ARCH := $(shell uname -m)
+    ifeq ($(ARCH),arm64)
+        RL_INCLUDE = -I/opt/homebrew/opt/readline/include
+        RL_LIB    = -L/opt/homebrew/opt/readline/lib
+    else
+        RL_INCLUDE = -I/usr/local/opt/readline/include
+        RL_LIB    = -L/usr/local/opt/readline/lib
+    endif
+else
+    RL_INCLUDE =
+    RL_LIB    =
+endif
+
+CFLAGS   = -Wall -Wextra -Werror -g -I$(LIBFT_DIR)/inc $(RL_INCLUDE)
+RL_FLAGS = $(RL_LIB) -lreadline
 
 SRCS = \
 	builtins/builtin_cd.c builtins/builtin_echo.c builtins/builtin_env.c \
