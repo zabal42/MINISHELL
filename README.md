@@ -2,6 +2,8 @@
 
 > Una implementación ligera de shell Unix escrita en C — proyecto de 42 Urduliz.
 
+![minishell demo](assets/demo.gif)
+
 ---
 
 ## Tabla de contenidos
